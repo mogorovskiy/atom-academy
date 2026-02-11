@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -20,7 +23,7 @@ public class CourseEntity {
     @Column(nullable = false, length = 100)
     private String title;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     private String description;
 
     @Enumerated(EnumType.STRING)
@@ -31,10 +34,21 @@ public class CourseEntity {
     @JoinColumn(name = "author_id", nullable = false)
     private AuthorEntity author;
 
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LessonEntity> lessons = new ArrayList<>();
+
     public CourseEntity(String title, String description, CourseComplexityEnum complexity) {
         this.title = title;
         this.description = description;
         this.complexity = complexity;
+    }
+
+    public void addLesson(LessonEntity lesson) {
+        if (lessons == null) {
+            this.lessons = new ArrayList<>();
+        }
+        this.lessons.add(lesson);
+        lesson.setCourse(this);
     }
 
 }

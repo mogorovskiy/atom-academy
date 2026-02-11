@@ -20,4 +20,13 @@ public class LessonEntity {
     private String title;
 
     private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id", nullable = false)
+    private CourseEntity course;
+
+    public LessonEntity(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }

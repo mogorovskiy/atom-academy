@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface CourseService {
 
-    CourseEntity createCourse(CourseEntity author);
+    CourseEntity createCourse(CourseEntity course);
 
-    CourseEntity updateCourse(CourseEntity author);
+    CourseEntity updateCourse(CourseEntity course);
 
     CourseEntity getCourse(Long id);
 
