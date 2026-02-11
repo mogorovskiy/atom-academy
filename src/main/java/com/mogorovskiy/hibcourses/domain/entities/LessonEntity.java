@@ -1,4 +1,4 @@
-package com.mogorovskiy.hibcourses.domain;
+package com.mogorovskiy.hibcourses.domain.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,14 +9,15 @@ import lombok.Setter;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name = "authors")
-public class CourseDetailsEntity {
+@Table(name = "lesson")
+public class LessonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String description;
+    @Column(nullable = false, length = 100)
+    private String title;
 
-    private String complexity;
+    private String content;
 }
