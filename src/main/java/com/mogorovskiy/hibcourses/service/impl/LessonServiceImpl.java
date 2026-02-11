@@ -1,6 +1,5 @@
 package com.mogorovskiy.hibcourses.service.impl;
 
-import com.mogorovskiy.hibcourses.domain.entities.CourseEntity;
 import com.mogorovskiy.hibcourses.domain.entities.LessonEntity;
 import com.mogorovskiy.hibcourses.repository.LessonRepository;
 import com.mogorovskiy.hibcourses.service.LessonService;
