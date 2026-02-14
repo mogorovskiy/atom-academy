@@ -1,5 +1,6 @@
 package com.mogorovskiy.hibcourses.service.impl;
 
+import com.mogorovskiy.hibcourses.api.AuthorCreateRequest;
 import com.mogorovskiy.hibcourses.domain.entities.AuthorEntity;
 import com.mogorovskiy.hibcourses.repository.AuthorRepository;
 import com.mogorovskiy.hibcourses.service.AuthorService;
@@ -19,13 +20,18 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Transactional
     @Override
-    public AuthorEntity createAuthor(AuthorEntity author) {
-        log.info("Creating author in DB: {}", author.getName());
-        return authorRepository.save(author);
+    public AuthorEntity createAuthor(AuthorCreateRequest authorCreateRequest) {
+        log.info("Creating author in DB: {}", authorCreateRequest.name());
+        AuthorEntity authorEntity = AuthorEntity.builder()
+                .name(authorCreateRequest.name())
+                .email(authorCreateRequest.email())
+                .build();
+
+        return authorRepository.save(authorEntity);
     }
 
     @Override
-    public AuthorEntity updateAuthor(AuthorEntity author) {
+    public AuthorEntity updateAuthor(AuthorCreateRequest author) {
         return null;
     }
 

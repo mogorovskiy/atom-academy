@@ -1,5 +1,6 @@
 package com.mogorovskiy.hibcourses.service.impl;
 
+import com.mogorovskiy.hibcourses.api.CourseCreateRequest;
 import com.mogorovskiy.hibcourses.domain.entities.CourseEntity;
 import com.mogorovskiy.hibcourses.repository.CourseRepository;
 import com.mogorovskiy.hibcourses.service.CourseService;
@@ -19,13 +20,15 @@ public class CourseServiceImpl implements CourseService {
 
     @Transactional
     @Override
-    public CourseEntity createCourse(CourseEntity course) {
-        log.info("Creating author in DB: {}", course.getTitle());
+    public CourseEntity createCourse(CourseCreateRequest course) {
+        log.info("Creating author in DB: {}", course.title());
+
+        CourseEntity courseEntity = CourseEntity.
         return courseRepository.save(course);
     }
 
     @Override
-    public CourseEntity updateCourse(CourseEntity course) {
+    public CourseEntity updateCourse(CourseCreateRequest course) {
         return null;
     }
 

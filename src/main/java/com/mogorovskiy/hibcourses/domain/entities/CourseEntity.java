@@ -2,9 +2,7 @@ package com.mogorovskiy.hibcourses.domain.entities;
 
 import com.mogorovskiy.hibcourses.domain.CourseComplexityEnum;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +10,9 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "course")
 public class CourseEntity {
 
@@ -52,3 +52,4 @@ public class CourseEntity {
     }
 
 }
+
