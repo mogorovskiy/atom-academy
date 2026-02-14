@@ -1,14 +1,10 @@
 package com.mogorovskiy.hibcourses.api.controller;
 
-import com.mogorovskiy.hibcourses.api.AuthorCreateRequest;
 import com.mogorovskiy.hibcourses.api.CourseCreateRequest;
 import com.mogorovskiy.hibcourses.domain.dto.AuthorDto;
 import com.mogorovskiy.hibcourses.domain.dto.CourseDto;
-import com.mogorovskiy.hibcourses.domain.entities.AuthorEntity;
 import com.mogorovskiy.hibcourses.domain.entities.CourseEntity;
-import com.mogorovskiy.hibcourses.domain.mapper.AuthorMapper;
 import com.mogorovskiy.hibcourses.domain.mapper.CourseMapper;
-import com.mogorovskiy.hibcourses.service.AuthorService;
 import com.mogorovskiy.hibcourses.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,30 +22,30 @@ public class CourseController {
     private final CourseMapper courseMapper;
 
     @PostMapping
-    public ResponseEntity<CourseDto> createAuthor(@RequestBody CourseCreateRequest createRequest) {
+    public ResponseEntity<CourseDto> createCourse(@RequestBody CourseCreateRequest createRequest) {
         log.info("Creating course: {}", createRequest);
 
         CourseEntity entity = courseService.createCourse(createRequest);
-        CourseDto courseDto = courseMapper.toCourseDto(entity);
+        CourseDto courseDto = courseMapper.toCourseDto(entity);  //TODO: why author id = null in postman?
 
         return ResponseEntity.status(HttpStatus.CREATED).body(courseDto);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AuthorDto> getById(@PathVariable Long id) {
+    public ResponseEntity<CourseDto> getById(@PathVariable Long id) {
         log.info("Getting author by id: {}", id);
 
-        AuthorEntity entity = authorService.getAuthor(id);
-        AuthorDto authorDto = authorMapper.toAuthorDto(entity);
+        CourseEntity entity = courseService.getCourse(id);
+        CourseDto courseDto = courseMapper.toCourseDto(entity);
 
-        return ResponseEntity.status(HttpStatus.OK).body(authorDto);
+        return ResponseEntity.status(HttpStatus.OK).body(courseDto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<AuthorDto> deleteAuthor(@PathVariable Long id) {
+    public ResponseEntity<AuthorDto> deleteCourse(@PathVariable Long id) {
         log.info("Deleting product by id: {}", id);
 
-        authorService.deleteAuthor(id);
+        courseService.deleteCourse(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

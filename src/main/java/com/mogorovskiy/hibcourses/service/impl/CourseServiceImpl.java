@@ -1,9 +1,12 @@
 package com.mogorovskiy.hibcourses.service.impl;
 
 import com.mogorovskiy.hibcourses.api.CourseCreateRequest;
+import com.mogorovskiy.hibcourses.domain.entities.AuthorEntity;
 import com.mogorovskiy.hibcourses.domain.entities.CourseEntity;
 import com.mogorovskiy.hibcourses.repository.CourseRepository;
+import com.mogorovskiy.hibcourses.service.AuthorService;
 import com.mogorovskiy.hibcourses.service.CourseService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,14 +20,21 @@ import java.util.List;
 public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
+    private final AuthorService authorService;
 
     @Transactional
     @Override
-    public CourseEntity createCourse(CourseCreateRequest course) {
-        log.info("Creating author in DB: {}", course.title());
+    public CourseEntity createCourse(CourseCreateRequest createRequest) {
+        log.info("Creating course in DB: {}", createRequest.title());
+        AuthorEntity author = authorService.getAuthor(createRequest.author_id());
 
-        CourseEntity courseEntity = CourseEntity.
-        return courseRepository.save(course);
+        CourseEntity courseEntity = CourseEntity.builder()
+                .author(author)
+                .title(createRequest.title())
+                .complexity(createRequest.complexity())
+                .description(createRequest.description())
+                .build();
+        return courseRepository.save(courseEntity);
     }
 
     @Override

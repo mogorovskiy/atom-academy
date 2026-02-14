@@ -4,6 +4,7 @@ import com.mogorovskiy.hibcourses.api.AuthorCreateRequest;
 import com.mogorovskiy.hibcourses.domain.entities.AuthorEntity;
 import com.mogorovskiy.hibcourses.repository.AuthorRepository;
 import com.mogorovskiy.hibcourses.service.AuthorService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public AuthorEntity getAuthor(Long id) {
         return authorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Author not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Author not found"));
     }
 
     @Override
