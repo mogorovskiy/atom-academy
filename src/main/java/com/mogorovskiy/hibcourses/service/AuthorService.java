@@ -9,7 +9,9 @@ public interface AuthorService {
 
     AuthorEntity createAuthor(AuthorCreateRequest author);
 
-    AuthorEntity updateAuthor(AuthorCreateRequest author);
+    AuthorEntity updateAuthor(Long id, AuthorCreateRequest author);
+
+    AuthorEntity patchAuthor(Long id, AuthorCreateRequest author);
 
     AuthorEntity getAuthor(Long id);
 

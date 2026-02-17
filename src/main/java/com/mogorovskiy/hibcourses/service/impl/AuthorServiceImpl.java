@@ -32,8 +32,36 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public AuthorEntity updateAuthor(AuthorCreateRequest author) {
-        return null;
+    public AuthorEntity updateAuthor(Long id, AuthorCreateRequest author) {
+        AuthorEntity entity = authorRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Author not found"));
+
+        entity.setName(author.name());
+        entity.setEmail(author.email());
+
+        return authorRepository.save(entity);
+    }
+
+    @Override
+    public AuthorEntity patchAuthor(Long id, AuthorCreateRequest createRequest) {
+        AuthorEntity entity = authorRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Author not found"));
+
+        boolean changed = false;
+        if (createRequest.name() != null) {
+            changed |= !createRequest.name().equals(entity.getName());
+            entity.setName(createRequest.name());
+        }
+        if (createRequest.email() != null) {
+            changed |= !createRequest.email().equals(entity.getEmail());
+            entity.setEmail(createRequest.email());
+        }
+
+        if (changed) {
+            return authorRepository.save(entity);
+        }
+
+        return entity;
     }
 
     @Override

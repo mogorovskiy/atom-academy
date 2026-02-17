@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/author")
+@RequestMapping("/api/authors")
 public class AuthorController {
 
     private final AuthorService authorService;
@@ -38,6 +38,23 @@ public class AuthorController {
         AuthorDto authorDto = authorMapper.toAuthorDto(entity);
 
         return ResponseEntity.status(HttpStatus.OK).body(authorDto);
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<AuthorDto> updateAuthor(
+            @PathVariable Long id,
+            @RequestBody AuthorCreateRequest updateRequest
+    ) {
+        log.info("Updating author id {}: {}", id, updateRequest);
+        AuthorEntity entity = authorService.updateAuthor(id, updateRequest);
+        return ResponseEntity.ok(authorMapper.toAuthorDto(entity));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<AuthorDto> patchAuthor(@PathVariable Long id, @RequestBody AuthorCreateRequest updateRequest) {
+        log.info("Patching author id {}: {}", id, updateRequest);
+        AuthorEntity entity = authorService.patchAuthor(id, updateRequest);
+        return ResponseEntity.ok(authorMapper.toAuthorDto(entity));
     }
 
     @DeleteMapping("/{id}")

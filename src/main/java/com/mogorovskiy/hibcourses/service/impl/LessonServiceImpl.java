@@ -23,9 +23,9 @@ public class LessonServiceImpl implements LessonService {
 
     @Transactional
     @Override
-    public LessonEntity createLesson(LessonCreateRequest createRequest) {
+    public LessonEntity createLesson(Long courseId, LessonCreateRequest createRequest) {
         log.info("Creating lesson in DB: {}", createRequest.title());
-        CourseEntity courseEntity = courseService.getCourse(createRequest.courseId());
+        CourseEntity courseEntity = courseService.getCourse(courseId);
 
         LessonEntity lessonEntity = LessonEntity.builder()
                 .title(createRequest.title())

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface LessonService {
 
-    LessonEntity createLesson(LessonCreateRequest lessonCreateRequest);
+    LessonEntity createLesson(Long courseId, LessonCreateRequest lessonCreateRequest);
 
     LessonEntity updateLesson(LessonEntity lesson);
 

@@ -14,23 +14,26 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/lesson")
+@RequestMapping("/api")
 public class LessonController {
 
     private final LessonService lessonService;
     private final LessonMapper lessonMapper;
 
-    @PostMapping
-    public ResponseEntity<LessonDto> createLesson(@RequestBody LessonCreateRequest createRequest) {
+    @PostMapping("/course/{courseId}/lessons")
+    public ResponseEntity<LessonDto> createLesson(
+            @PathVariable Long courseId,
+            @RequestBody LessonCreateRequest createRequest
+    ) {
         log.info("Creating lesson: {}", createRequest);
 
-        LessonEntity entity = lessonService.createLesson(createRequest);
+        LessonEntity entity = lessonService.createLesson(courseId, createRequest);
         LessonDto lessonDto = lessonMapper.toLessonDto(entity);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(lessonDto);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/lessons/{id}")
     public ResponseEntity<LessonDto> getById(@PathVariable Long id) {
         log.info("Getting lesson by id: {}", id);
 
@@ -40,7 +43,9 @@ public class LessonController {
         return ResponseEntity.status(HttpStatus.OK).body(lessonDto);
     }
 
-    @DeleteMapping("/{id}")
+    //TODO: add update & patch
+
+    @DeleteMapping("/lessons/{id}")
     public ResponseEntity<LessonDto> deleteLesson(@PathVariable Long id) {
         log.info("Deleting lesson by id: {}", id);
 

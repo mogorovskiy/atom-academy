@@ -11,10 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/course")
+@RequestMapping("/api/courses")
 public class CourseController {
 
     private final CourseService courseService;
@@ -39,6 +41,21 @@ public class CourseController {
 
         return ResponseEntity.status(HttpStatus.OK).body(courseDto);
     }
+
+    @GetMapping
+    public ResponseEntity<List<CourseDto>> getAllCourses() {
+        log.info("Getting all courses");
+        List<CourseEntity> entities = courseService.getAllCourses();
+
+        List<CourseDto> courseDtos = entities.stream()
+                .map(courseMapper::toCourseDto)
+                .toList();
+
+        return ResponseEntity.status(HttpStatus.OK).body(courseDtos);
+    }
+
+    //TODO: 1. add author name to response +  n+1 ??
+    //TODO: add update & patch methods
 
     @DeleteMapping("/{id}")
     public ResponseEntity<CourseDto> deleteCourse(@PathVariable Long id) {
