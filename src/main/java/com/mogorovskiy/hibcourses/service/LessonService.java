@@ -1,12 +1,13 @@
 package com.mogorovskiy.hibcourses.service;
 
+import com.mogorovskiy.hibcourses.api.LessonCreateRequest;
 import com.mogorovskiy.hibcourses.domain.entities.LessonEntity;
 
 import java.util.List;
 
 public interface LessonService {
 
-    LessonEntity createLesson(LessonEntity lesson);
+    LessonEntity createLesson(LessonCreateRequest lessonCreateRequest);
 
     LessonEntity updateLesson(LessonEntity lesson);
 

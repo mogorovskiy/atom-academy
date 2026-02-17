@@ -26,7 +26,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public CourseEntity createCourse(CourseCreateRequest createRequest) {
         log.info("Creating course in DB: {}", createRequest.title());
-        AuthorEntity author = authorService.getAuthor(createRequest.author_id());
+        AuthorEntity author = authorService.getAuthor(createRequest.authorId());
 
         CourseEntity courseEntity = CourseEntity.builder()
                 .author(author)

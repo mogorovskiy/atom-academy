@@ -1,6 +1,6 @@
-package com.mogorovskiy.hibcourses.domain.dto;
+package com.mogorovskiy.hibcourses.api;
 
-public record LessonDto(
+public record LessonCreateRequest(
         String title,
         String content,
         Long courseId
