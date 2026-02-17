@@ -6,7 +6,6 @@ import com.mogorovskiy.hibcourses.domain.entities.CourseEntity;
 import com.mogorovskiy.hibcourses.repository.CourseRepository;
 import com.mogorovskiy.hibcourses.service.AuthorService;
 import com.mogorovskiy.hibcourses.service.CourseService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

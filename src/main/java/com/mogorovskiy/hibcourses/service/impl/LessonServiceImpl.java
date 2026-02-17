@@ -3,7 +3,6 @@ package com.mogorovskiy.hibcourses.service.impl;
 import com.mogorovskiy.hibcourses.api.LessonCreateRequest;
 import com.mogorovskiy.hibcourses.domain.entities.CourseEntity;
 import com.mogorovskiy.hibcourses.domain.entities.LessonEntity;
-import com.mogorovskiy.hibcourses.repository.CourseRepository;
 import com.mogorovskiy.hibcourses.repository.LessonRepository;
 import com.mogorovskiy.hibcourses.service.CourseService;
 import com.mogorovskiy.hibcourses.service.LessonService;
