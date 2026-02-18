@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.mogorovskiy</groupId>
-    <artifactId>hib-courses</artifactId>
+    <artifactId>atom-academy</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>hib-courses</name>
-    <description>hib-courses</description>
+    <name>atom-academy</name>
+    <description>atom-academy</description>
     <url/>
     <licenses>
         <license/>
