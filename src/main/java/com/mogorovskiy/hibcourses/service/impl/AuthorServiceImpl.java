@@ -1,6 +1,6 @@
 package com.mogorovskiy.hibcourses.service.impl;
 
-import com.mogorovskiy.hibcourses.api.AuthorCreateRequest;
+import com.mogorovskiy.hibcourses.api.request.create.AuthorCreateAndUpdateRequest;
 import com.mogorovskiy.hibcourses.domain.entities.AuthorEntity;
 import com.mogorovskiy.hibcourses.repository.AuthorRepository;
 import com.mogorovskiy.hibcourses.service.AuthorService;
@@ -21,7 +21,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Transactional
     @Override
-    public AuthorEntity createAuthor(AuthorCreateRequest authorCreateRequest) {
+    public AuthorEntity createAuthor(AuthorCreateAndUpdateRequest authorCreateRequest) {
         log.info("Creating author in DB: {}", authorCreateRequest.name());
         AuthorEntity authorEntity = AuthorEntity.builder()
                 .name(authorCreateRequest.name())
@@ -32,7 +32,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public AuthorEntity updateAuthor(Long id, AuthorCreateRequest author) {
+    public AuthorEntity updateAuthor(Long id, AuthorCreateAndUpdateRequest author) {
         AuthorEntity entity = authorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Author not found"));
 
@@ -43,7 +43,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public AuthorEntity patchAuthor(Long id, AuthorCreateRequest createRequest) {
+    public AuthorEntity patchAuthor(Long id, AuthorCreateAndUpdateRequest createRequest) {
         AuthorEntity entity = authorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Author not found"));
 

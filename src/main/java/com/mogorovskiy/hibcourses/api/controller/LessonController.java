@@ -1,6 +1,6 @@
 package com.mogorovskiy.hibcourses.api.controller;
 
-import com.mogorovskiy.hibcourses.api.LessonCreateRequest;
+import com.mogorovskiy.hibcourses.api.request.create.LessonCreateAndUpdateRequest;
 import com.mogorovskiy.hibcourses.domain.dto.LessonDto;
 import com.mogorovskiy.hibcourses.domain.entities.LessonEntity;
 import com.mogorovskiy.hibcourses.domain.mapper.LessonMapper;
@@ -23,7 +23,7 @@ public class LessonController {
     @PostMapping("/course/{courseId}/lessons")
     public ResponseEntity<LessonDto> createLesson(
             @PathVariable Long courseId,
-            @RequestBody LessonCreateRequest createRequest
+            @RequestBody LessonCreateAndUpdateRequest createRequest
     ) {
         log.info("Creating lesson: {}", createRequest);
 
@@ -43,7 +43,27 @@ public class LessonController {
         return ResponseEntity.status(HttpStatus.OK).body(lessonDto);
     }
 
-    //TODO: add update & patch
+    @PutMapping("/lessons/{id}")
+    public ResponseEntity<LessonDto> updateLesson(
+            @PathVariable Long id,
+            @RequestBody LessonCreateAndUpdateRequest request
+    ) {
+        log.info("Full update for lesson id {}: {}", id, request);
+
+        LessonEntity entity = lessonService.updateLesson(id, request);
+        return ResponseEntity.ok(lessonMapper.toLessonDto(entity));
+    }
+
+    @PatchMapping("/lessons/{id}")
+    public ResponseEntity<LessonDto> patchLesson(
+            @PathVariable Long id,
+            @RequestBody LessonCreateAndUpdateRequest request
+    ) {
+        log.info("Partial update (patch) for lesson id {}: {}", id, request);
+
+        LessonEntity entity = lessonService.patchLesson(id, request);
+        return ResponseEntity.ok(lessonMapper.toLessonDto(entity));
+    }
 
     @DeleteMapping("/lessons/{id}")
     public ResponseEntity<LessonDto> deleteLesson(@PathVariable Long id) {

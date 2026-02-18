@@ -1,4 +1,4 @@
-package com.mogorovskiy.hibcourses.api;
+package com.mogorovskiy.hibcourses.api.request.create;
 
 import com.mogorovskiy.hibcourses.domain.CourseComplexityEnum;
 

@@ -8,6 +8,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface CourseMapper {
 
+    @Mapping(source = "author.name", target = "authorName")
     @Mapping(source = "author.id", target = "authorId")
     CourseDto toCourseDto(CourseEntity courseEntity);
 

@@ -1,6 +1,7 @@
 package com.mogorovskiy.hibcourses.api.controller;
 
-import com.mogorovskiy.hibcourses.api.CourseCreateRequest;
+import com.mogorovskiy.hibcourses.api.request.create.CourseCreateRequest;
+import com.mogorovskiy.hibcourses.api.request.update.CourseUpdateRequest;
 import com.mogorovskiy.hibcourses.domain.dto.CourseDto;
 import com.mogorovskiy.hibcourses.domain.entities.CourseEntity;
 import com.mogorovskiy.hibcourses.domain.mapper.CourseMapper;
@@ -54,8 +55,25 @@ public class CourseController {
         return ResponseEntity.status(HttpStatus.OK).body(courseDtos);
     }
 
-    //TODO: 1. add author name to response +  n+1 ??
-    //TODO: add update & patch methods
+    @PutMapping("/{id}")
+    public ResponseEntity<CourseDto> updateCourse(
+            @PathVariable Long id,
+            @RequestBody CourseUpdateRequest updateRequest
+    ) {
+        log.info("Full update for course id {}: {}", id, updateRequest);
+        CourseEntity entity = courseService.updateCourse(id, updateRequest);
+        return ResponseEntity.ok(courseMapper.toCourseDto(entity));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<CourseDto> patchCourse(
+            @PathVariable Long id,
+            @RequestBody CourseUpdateRequest updateRequest
+    ) {
+        log.info("Partial update (patch) for course id {}: {}", id, updateRequest);
+        CourseEntity entity = courseService.patchCourse(id, updateRequest);
+        return ResponseEntity.ok(courseMapper.toCourseDto(entity));
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<CourseDto> deleteCourse(@PathVariable Long id) {

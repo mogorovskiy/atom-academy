@@ -8,6 +8,7 @@ public record CourseDto(
         Long id,
         Long authorId,
         String title,
+        String authorName,
         String description,
         CourseComplexityEnum complexity,
         List<LessonDto> lessons

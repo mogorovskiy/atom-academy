@@ -1,6 +1,6 @@
 package com.mogorovskiy.hibcourses.api.controller;
 
-import com.mogorovskiy.hibcourses.api.AuthorCreateRequest;
+import com.mogorovskiy.hibcourses.api.request.create.AuthorCreateAndUpdateRequest;
 import com.mogorovskiy.hibcourses.domain.dto.AuthorDto;
 import com.mogorovskiy.hibcourses.domain.entities.AuthorEntity;
 import com.mogorovskiy.hibcourses.domain.mapper.AuthorMapper;
@@ -21,7 +21,7 @@ public class AuthorController {
     private final AuthorMapper authorMapper;
 
     @PostMapping
-    public ResponseEntity<AuthorDto> createAuthor(@RequestBody AuthorCreateRequest createRequest) {
+    public ResponseEntity<AuthorDto> createAuthor(@RequestBody AuthorCreateAndUpdateRequest createRequest) {
         log.info("Creating author: {}", createRequest);
 
         AuthorEntity entity = authorService.createAuthor(createRequest);
@@ -40,10 +40,10 @@ public class AuthorController {
         return ResponseEntity.status(HttpStatus.OK).body(authorDto);
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<AuthorDto> updateAuthor(
             @PathVariable Long id,
-            @RequestBody AuthorCreateRequest updateRequest
+            @RequestBody AuthorCreateAndUpdateRequest updateRequest
     ) {
         log.info("Updating author id {}: {}", id, updateRequest);
         AuthorEntity entity = authorService.updateAuthor(id, updateRequest);
@@ -51,7 +51,9 @@ public class AuthorController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<AuthorDto> patchAuthor(@PathVariable Long id, @RequestBody AuthorCreateRequest updateRequest) {
+    public ResponseEntity<AuthorDto> patchAuthor(
+            @PathVariable Long id,
+            @RequestBody AuthorCreateAndUpdateRequest updateRequest) {
         log.info("Patching author id {}: {}", id, updateRequest);
         AuthorEntity entity = authorService.patchAuthor(id, updateRequest);
         return ResponseEntity.ok(authorMapper.toAuthorDto(entity));

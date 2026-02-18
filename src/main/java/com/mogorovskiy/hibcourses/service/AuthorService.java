@@ -1,17 +1,17 @@
 package com.mogorovskiy.hibcourses.service;
 
-import com.mogorovskiy.hibcourses.api.AuthorCreateRequest;
+import com.mogorovskiy.hibcourses.api.request.create.AuthorCreateAndUpdateRequest;
 import com.mogorovskiy.hibcourses.domain.entities.AuthorEntity;
 
 import java.util.List;
 
 public interface AuthorService {
 
-    AuthorEntity createAuthor(AuthorCreateRequest author);
+    AuthorEntity createAuthor(AuthorCreateAndUpdateRequest author);
 
-    AuthorEntity updateAuthor(Long id, AuthorCreateRequest author);
+    AuthorEntity updateAuthor(Long id, AuthorCreateAndUpdateRequest author);
 
-    AuthorEntity patchAuthor(Long id, AuthorCreateRequest author);
+    AuthorEntity patchAuthor(Long id, AuthorCreateAndUpdateRequest author);
 
     AuthorEntity getAuthor(Long id);
 
