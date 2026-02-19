@@ -24,7 +24,7 @@ s">
                 <h3 class="text-light mb-3 fw-bold">Хотите поделиться знаниями?</h3>
                 <p class="text-light-50 mb-4">Станьте частью команды Atom Academy и создавайте курсы будущего</p>
                 <button type="button" class="btn btn-outline-success btn-lg px-5 fw-bold text-uppercase"
-                        data-bs-toggle="modal" data-bs-target="#authorModal">
+                        data-bs-toggle="modal" id="сreateAuthorBtn">
                     Стать автором
                 </button>
             </div>
@@ -75,7 +75,7 @@ s">
                         </div>
                         <p class="card-text text-light small mt-2">${course.description}</p>
                         <p class="card-text"><small>Автор: ${course.authorName}</small></p>
-                        <button class="btn btn-sm btn-info w-100">Уроки курса</button>
+                       <a href="lessons.html?id=${course.id}" class="btn btn-sm btn-neon-purple w-100 mt-2">Смотреть уроки</a>
                     </div>
                 </div>
             `;

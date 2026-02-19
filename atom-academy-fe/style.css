@@ -7,8 +7,8 @@
 
 .card:hover {
     transform: scale(1.01);
-    border-color: #0dcaf0 !important;
-    box-shadow: 0 0 15px rgba(13, 202, 240, 0.3) !important;
+    border-color: #ffffff !important;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3) !important;
 }
 
 body {
@@ -25,7 +25,7 @@ body {
 
 #author-section {
     background:
-            linear-gradient(rgba(58, 58, 58, 0.5), rgba(1, 16, 59, 0.5)),
+            linear-gradient(rgba(58, 58, 58, 0.5), rgba(0, 25, 87, 0.5)),
             url('img/66.jpg');
 
     background-size: 120%;
@@ -54,4 +54,22 @@ body {
 /* Это поможет убрать резкие границы */
 .container, .container-fluid {
     background-color: transparent !important;
+}
+
+.btn-neon-purple {
+    color: #e6abff;
+    border: 2px solid #66008a;
+    background: transparent;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.btn-neon-purple:hover {
+    color: #fff;
+    background-color: #66008c;
+    /* Эффект неонового свечения */
+    box-shadow: 0 0 10px #bc13fe, 0 0 40px #bc13fe;
+    transform: scale(1.02);
 }

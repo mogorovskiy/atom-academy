@@ -15,7 +15,7 @@ public interface LessonService {
 
     LessonEntity getLesson(Long id);
 
-    List<LessonEntity> getAllLessons();
+    List<LessonEntity> getLessonsByCourseId(Long courseId);
 
     void deleteLesson(Long id);
 }

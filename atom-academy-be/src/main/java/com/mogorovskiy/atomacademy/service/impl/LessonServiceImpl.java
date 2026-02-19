@@ -73,8 +73,8 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public List<LessonEntity> getAllLessons() {
-        return lessonRepository.findAll();
+    public List<LessonEntity> getLessonsByCourseId(Long courseId) {
+        return lessonRepository.findLessonsByCourseId(courseId);
     }
 
     @Transactional

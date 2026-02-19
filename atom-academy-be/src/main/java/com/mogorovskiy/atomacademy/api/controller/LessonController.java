@@ -11,16 +11,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 @RequestMapping("/api")
 public class LessonController {
 
     private final LessonService lessonService;
     private final LessonMapper lessonMapper;
 
-    @PostMapping("/course/{courseId}/lessons")
+    @PostMapping("/courses/{courseId}/lessons")
     public ResponseEntity<LessonDto> createLesson(
             @PathVariable Long courseId,
             @RequestBody LessonCreateAndUpdateRequest createRequest
@@ -41,6 +44,20 @@ public class LessonController {
         LessonDto lessonDto = lessonMapper.toLessonDto(entity);
 
         return ResponseEntity.status(HttpStatus.OK).body(lessonDto);
+    }
+
+    @GetMapping("/courses/{courseId}/lessons")
+    public ResponseEntity<List<LessonDto>> getAllLessons(
+            @PathVariable Long courseId
+    ) {
+        log.info("Getting all lessons");
+        List<LessonEntity> entities = lessonService.getLessonsByCourseId(courseId);
+
+        List<LessonDto> courseDtos = entities.stream()
+                .map(lessonMapper::toLessonDto)
+                .toList();
+
+        return ResponseEntity.status(HttpStatus.OK).body(courseDtos);
     }
 
     @PutMapping("/lessons/{id}")
