@@ -1,16 +1,16 @@
 services:
   postgres:
     image: postgres:17.2
-    container_name: hib-courses
+    container_name: atom-practice
     restart: on-failure
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: hib-courses
+      POSTGRES_DB: atom-practice
       TZ: UTC
       PGTZ: UTC
     ports:
-      - "5433:5432"
+      - "5434:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
