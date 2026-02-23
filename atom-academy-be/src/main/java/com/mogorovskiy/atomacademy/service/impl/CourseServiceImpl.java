@@ -2,6 +2,7 @@ package com.mogorovskiy.atomacademy.service.impl;
 
 import com.mogorovskiy.atomacademy.api.request.create.CourseCreateRequest;
 import com.mogorovskiy.atomacademy.api.request.update.CourseUpdateRequest;
+import com.mogorovskiy.atomacademy.domain.CacheNames;
 import com.mogorovskiy.atomacademy.domain.entities.AuthorEntity;
 import com.mogorovskiy.atomacademy.domain.entities.CourseEntity;
 import com.mogorovskiy.atomacademy.repository.CourseRepository;
@@ -10,6 +11,9 @@ import com.mogorovskiy.atomacademy.service.CourseService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +29,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Transactional
     @Override
+    @CacheEvict(value = CacheNames.COURSES_LIST, allEntries = true)
     public CourseEntity createCourse(CourseCreateRequest createRequest) {
         log.info("Creating course in DB: {}", createRequest.title());
         AuthorEntity author = authorService.getAuthor(createRequest.authorId());
@@ -39,6 +44,10 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Transactional
+    @Caching(evict = {
+            @CacheEvict(value = CacheNames.COURSE, key = "#id"),
+            @CacheEvict(value = CacheNames.COURSES_LIST, allEntries = true)
+    })
     public CourseEntity updateCourse(Long id, CourseUpdateRequest updateRequest) {
         CourseEntity entity = courseRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Course not found"));
@@ -51,6 +60,10 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Transactional
+    @Caching(evict = {
+            @CacheEvict(value = CacheNames.COURSE, key = "#id"),
+            @CacheEvict(value = CacheNames.COURSES_LIST, allEntries = true)
+    })
     public CourseEntity patchCourse(Long id, CourseUpdateRequest dto) {
         CourseEntity entity = courseRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Course not found"));
@@ -74,18 +87,24 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Cacheable(value = CacheNames.COURSE, key = "#id")
     public CourseEntity getCourse(Long id) {
         return courseRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Course not found"));
     }
 
     @Override
+    @Cacheable(value = CacheNames.COURSES_LIST)
     public List<CourseEntity> getAllCourses() {
         return courseRepository.findAllWithAuthors();
     }
 
     @Transactional
     @Override
+    @Caching(evict = {
+            @CacheEvict(value = CacheNames.COURSE, key = "#id"),
+            @CacheEvict(value = CacheNames.COURSES_LIST, allEntries = true)
+    })
     public void deleteCourse(Long id) {
         log.info("Deleting course by id: {}", id);
         courseRepository.deleteById(id);
