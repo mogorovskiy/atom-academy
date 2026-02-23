@@ -2,7 +2,6 @@ package com.mogorovskiy.atomacademy.service;
 
 import com.mogorovskiy.atomacademy.api.request.create.QuestionCreateAndUpdateRequest;
 import com.mogorovskiy.atomacademy.domain.entities.QuestionEntity;
-import com.mogorovskiy.atomacademy.domain.entities.QuestionEntity;
 
 import java.util.List;
 
