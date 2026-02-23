@@ -47,7 +47,7 @@ public class QuestionController {
     }
 
     @GetMapping("/courses/{courseId}/questions")
-    public ResponseEntity<List<QuestionDto>> getAllLessons(
+    public ResponseEntity<List<QuestionDto>> getAllQuestions(
             @PathVariable Long courseId
     ) {
         log.info("Getting all questions by course: {}", courseId);
@@ -61,7 +61,7 @@ public class QuestionController {
     }
 
     @PutMapping("/questions/{id}")
-    public ResponseEntity<QuestionDto> updateLesson(
+    public ResponseEntity<QuestionDto> updateQuestion(
             @PathVariable Long id,
             @RequestBody QuestionCreateAndUpdateRequest request
     ) {
@@ -71,7 +71,7 @@ public class QuestionController {
     }
 
     @PatchMapping("/questions/{id}")
-    public ResponseEntity<QuestionDto> patchLesson(
+    public ResponseEntity<QuestionDto> patchQuestion(
             @PathVariable Long id,
             @RequestBody QuestionCreateAndUpdateRequest request
     ) {
@@ -82,7 +82,7 @@ public class QuestionController {
     }
 
     @DeleteMapping("/questions/{id}")
-    public ResponseEntity<QuestionDto> deleteLesson(@PathVariable Long id) {
+    public ResponseEntity<QuestionDto> deleteQuestion(@PathVariable Long id) {
         log.info("Deleting question by id: {}", id);
 
         questionService.deleteQuestion(id);

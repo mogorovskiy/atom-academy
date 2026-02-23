@@ -26,7 +26,7 @@ create table question
     question  text   not null,
     answer    text,
     course_id bigint not null,
-    constraint fk_lessons_to_courses
+    constraint fk_questions_to_courses
         foreign key (course_id)
             references course (id)
             on delete cascade
