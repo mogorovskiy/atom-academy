@@ -9,24 +9,24 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "lesson")
-public class LessonEntity {
+@Table(name = "question")
+public class QuestionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 100)
-    private String title;
+    @Column(nullable = false, length = 200)
+    private String question;
 
-    private String content;
+    private String answer;
 
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)
     private CourseEntity course;
 
-    public LessonEntity(String title, String content) {
-        this.title = title;
-        this.content = content;
+    public QuestionEntity(String title, String content) {
+        this.question = title;
+        this.answer = content;
     }
 }

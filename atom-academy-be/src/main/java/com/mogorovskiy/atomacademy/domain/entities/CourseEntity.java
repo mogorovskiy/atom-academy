@@ -35,7 +35,7 @@ public class CourseEntity {
     private AuthorEntity author;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<LessonEntity> lessons = new ArrayList<>();
+    private List<QuestionEntity> lessons = new ArrayList<>();
 
     public CourseEntity(String title, String description, CourseComplexityEnum complexity) {
         this.title = title;
@@ -43,7 +43,7 @@ public class CourseEntity {
         this.complexity = complexity;
     }
 
-    public void addLesson(LessonEntity lesson) {
+    public void addLesson(QuestionEntity lesson) {
         if (lessons == null) {
             this.lessons = new ArrayList<>();
         }

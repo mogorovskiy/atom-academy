@@ -11,6 +11,6 @@ public record CourseDto(
         String authorName,
         String description,
         CourseComplexityEnum complexity,
-        List<LessonDto> lessons
+        List<QuestionDto> questions
 ) {
 }
