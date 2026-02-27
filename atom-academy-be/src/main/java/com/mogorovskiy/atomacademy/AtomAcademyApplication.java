@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class AtomAcademyApplication {
 
     //TODO: sql indexes +++
-    //TODO: redis +
+    //TODO: redis ++
     //TODO: spring security
     //TODO: course pagination https://www.youtube.com/watch?v=_mg0JKU-bvU
 

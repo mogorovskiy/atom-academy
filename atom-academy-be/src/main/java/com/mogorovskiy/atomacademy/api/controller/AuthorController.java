@@ -5,6 +5,7 @@ import com.mogorovskiy.atomacademy.domain.dto.AuthorDto;
 import com.mogorovskiy.atomacademy.domain.entities.AuthorEntity;
 import com.mogorovskiy.atomacademy.domain.mapper.AuthorMapper;
 import com.mogorovskiy.atomacademy.service.AuthorService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ public class AuthorController {
     private final AuthorMapper authorMapper;
 
     @PostMapping
-    public ResponseEntity<AuthorDto> createAuthor(@RequestBody AuthorCreateAndUpdateRequest createRequest) {
+    public ResponseEntity<AuthorDto> createAuthor(@Valid @RequestBody AuthorCreateAndUpdateRequest createRequest) {
         log.info("Creating author: {}", createRequest);
 
         AuthorEntity entity = authorService.createAuthor(createRequest);
@@ -44,7 +45,7 @@ public class AuthorController {
     @PutMapping("/{id}")
     public ResponseEntity<AuthorDto> updateAuthor(
             @PathVariable Long id,
-            @RequestBody AuthorCreateAndUpdateRequest updateRequest
+            @Valid @RequestBody AuthorCreateAndUpdateRequest updateRequest
     ) {
         log.info("Updating author id {}: {}", id, updateRequest);
         AuthorEntity entity = authorService.updateAuthor(id, updateRequest);
@@ -54,7 +55,7 @@ public class AuthorController {
     @PatchMapping("/{id}")
     public ResponseEntity<AuthorDto> patchAuthor(
             @PathVariable Long id,
-            @RequestBody AuthorCreateAndUpdateRequest updateRequest) {
+            @Valid @RequestBody AuthorCreateAndUpdateRequest updateRequest) {
         log.info("Patching author id {}: {}", id, updateRequest);
         AuthorEntity entity = authorService.patchAuthor(id, updateRequest);
         return ResponseEntity.ok(authorMapper.toAuthorDto(entity));

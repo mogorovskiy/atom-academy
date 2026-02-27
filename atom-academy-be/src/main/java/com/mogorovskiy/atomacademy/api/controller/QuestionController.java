@@ -5,6 +5,7 @@ import com.mogorovskiy.atomacademy.domain.dto.QuestionDto;
 import com.mogorovskiy.atomacademy.domain.entities.QuestionEntity;
 import com.mogorovskiy.atomacademy.domain.mapper.QuestionMapper;
 import com.mogorovskiy.atomacademy.service.QuestionService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class QuestionController {
     @PostMapping("/courses/{courseId}/questions")
     public ResponseEntity<QuestionDto> createQuestion(
             @PathVariable Long courseId,
-            @RequestBody QuestionCreateAndUpdateRequest createRequest
+            @Valid @RequestBody QuestionCreateAndUpdateRequest createRequest
     ) {
         log.info("Creating question: {}", createRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(questionService.createQuestion(courseId, createRequest));
@@ -49,7 +50,7 @@ public class QuestionController {
     @PutMapping("/questions/{id}")
     public ResponseEntity<QuestionDto> updateQuestion(
             @PathVariable Long id,
-            @RequestBody QuestionCreateAndUpdateRequest request
+            @Valid @RequestBody QuestionCreateAndUpdateRequest request
     ) {
         log.info("Full update for question id {}: {}", id, request);
         QuestionEntity entity = questionService.updateQuestion(id, request);
@@ -59,7 +60,7 @@ public class QuestionController {
     @PatchMapping("/questions/{id}")
     public ResponseEntity<QuestionDto> patchQuestion(
             @PathVariable Long id,
-            @RequestBody QuestionCreateAndUpdateRequest request
+            @Valid @RequestBody QuestionCreateAndUpdateRequest request
     ) {
         log.info("Partial update (patch) for question id {}: {}", id, request);
 

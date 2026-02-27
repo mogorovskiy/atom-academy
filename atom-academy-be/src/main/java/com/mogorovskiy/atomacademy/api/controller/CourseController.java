@@ -6,6 +6,7 @@ import com.mogorovskiy.atomacademy.domain.dto.CourseDto;
 import com.mogorovskiy.atomacademy.domain.entities.CourseEntity;
 import com.mogorovskiy.atomacademy.domain.mapper.CourseMapper;
 import com.mogorovskiy.atomacademy.service.CourseService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class CourseController {
     private final CourseMapper courseMapper;
 
     @PostMapping
-    public ResponseEntity<CourseDto> createCourse(@RequestBody CourseCreateRequest createRequest) {
+    public ResponseEntity<CourseDto> createCourse(@Valid @RequestBody CourseCreateRequest createRequest) {
         log.info("Creating course: {}", createRequest);
 
         CourseEntity entity = courseService.createCourse(createRequest);
@@ -49,7 +50,7 @@ public class CourseController {
     @PutMapping("/{id}")
     public ResponseEntity<CourseDto> updateCourse(
             @PathVariable Long id,
-            @RequestBody CourseUpdateRequest updateRequest
+            @Valid @RequestBody CourseUpdateRequest updateRequest
     ) {
         log.info("Full update for course id {}: {}", id, updateRequest);
         CourseEntity entity = courseService.updateCourse(id, updateRequest);
@@ -59,7 +60,7 @@ public class CourseController {
     @PatchMapping("/{id}")
     public ResponseEntity<CourseDto> patchCourse(
             @PathVariable Long id,
-            @RequestBody CourseUpdateRequest updateRequest
+            @Valid @RequestBody CourseUpdateRequest updateRequest
     ) {
         log.info("Partial update (patch) for course id {}: {}", id, updateRequest);
         CourseEntity entity = courseService.patchCourse(id, updateRequest);
