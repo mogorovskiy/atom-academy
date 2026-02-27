@@ -37,23 +37,13 @@ public class CourseController {
     @GetMapping("/{id}")
     public ResponseEntity<CourseDto> getById(@PathVariable Long id) {
         log.info("Getting course by id: {}", id);
-
-        CourseEntity entity = courseService.getCourse(id);
-        CourseDto courseDto = courseMapper.toCourseDto(entity);
-
-        return ResponseEntity.status(HttpStatus.OK).body(courseDto);
+        return ResponseEntity.status(HttpStatus.OK).body(courseService.getCourse(id));
     }
 
     @GetMapping
     public ResponseEntity<List<CourseDto>> getAllCourses() {
         log.info("Getting all courses");
-        List<CourseEntity> entities = courseService.getAllCourses();
-
-        List<CourseDto> courseDtos = entities.stream()
-                .map(courseMapper::toCourseDto)
-                .toList();
-
-        return ResponseEntity.status(HttpStatus.OK).body(courseDtos);
+        return ResponseEntity.status(HttpStatus.OK).body(courseService.getAllCourses());
     }
 
     @PutMapping("/{id}")

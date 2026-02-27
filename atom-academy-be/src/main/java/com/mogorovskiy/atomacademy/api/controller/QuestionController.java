@@ -29,35 +29,21 @@ public class QuestionController {
             @RequestBody QuestionCreateAndUpdateRequest createRequest
     ) {
         log.info("Creating question: {}", createRequest);
-
-        QuestionEntity entity = questionService.createQuestion(courseId, createRequest);
-        QuestionDto questionDto = questionMapper.toQuestionDto(entity);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(questionDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(questionService.createQuestion(courseId, createRequest));
     }
 
     @GetMapping("/questions/{id}")
     public ResponseEntity<QuestionDto> getById(@PathVariable Long id) {
         log.info("Getting question by id: {}", id);
-
-        QuestionEntity entity = questionService.getQuestion(id);
-        QuestionDto questionDto = questionMapper.toQuestionDto(entity);
-
-        return ResponseEntity.status(HttpStatus.OK).body(questionDto);
+        return ResponseEntity.status(HttpStatus.OK).body(questionService.getQuestion(id));
     }
 
     @GetMapping("/courses/{courseId}/questions")
-    public ResponseEntity<List<QuestionDto>> getAllQuestions(
+    public ResponseEntity<List<QuestionDto>> getQuestionsByCourse(
             @PathVariable Long courseId
     ) {
         log.info("Getting all questions by course: {}", courseId);
-        List<QuestionEntity> entities = questionService.getQuestionsByCourseId(courseId);
-
-        List<QuestionDto> courseDtos = entities.stream()
-                .map(questionMapper::toQuestionDto)
-                .toList();
-
-        return ResponseEntity.status(HttpStatus.OK).body(courseDtos);
+        return ResponseEntity.status(HttpStatus.OK).body(questionService.getQuestionsByCourseId(courseId));
     }
 
     @PutMapping("/questions/{id}")

@@ -1,14 +1,20 @@
 package com.mogorovskiy.atomacademy.service.impl;
 
 import com.mogorovskiy.atomacademy.api.request.create.QuestionCreateAndUpdateRequest;
+import com.mogorovskiy.atomacademy.domain.CacheNames;
+import com.mogorovskiy.atomacademy.domain.dto.QuestionDto;
 import com.mogorovskiy.atomacademy.domain.entities.CourseEntity;
 import com.mogorovskiy.atomacademy.domain.entities.QuestionEntity;
+import com.mogorovskiy.atomacademy.domain.mapper.QuestionMapper;
 import com.mogorovskiy.atomacademy.repository.QuestionRepository;
 import com.mogorovskiy.atomacademy.service.CourseService;
 import com.mogorovskiy.atomacademy.service.QuestionService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,24 +25,32 @@ import java.util.List;
 @RequiredArgsConstructor
 public class QuestionServiceImpl implements QuestionService {
 
+    private final QuestionMapper questionMapper;
     private final QuestionRepository questionRepository;
     private final CourseService courseService;
 
     @Transactional
     @Override
-    public QuestionEntity createQuestion(Long courseId, QuestionCreateAndUpdateRequest createRequest) {
-        log.info("Creating question in DB: {}", createRequest.question());
-        CourseEntity courseEntity = courseService.getCourse(courseId);
+    @CacheEvict(value = CacheNames.QUESTION, key = "#courseId")
+    public QuestionDto createQuestion(Long courseId, QuestionCreateAndUpdateRequest createRequest) {
+        log.info("Creating question for course {}: {}", courseId, createRequest.question());
+        CourseEntity courseEntity = courseService.getCourseEntity(courseId);
 
         QuestionEntity questionEntity = QuestionEntity.builder()
                 .question(createRequest.question())
                 .answer(createRequest.answer())
                 .course(courseEntity)
                 .build();
-        return questionRepository.save(questionEntity);
+
+        QuestionEntity saved = questionRepository.save(questionEntity);
+        return questionMapper.toQuestionDto(saved);
     }
 
     @Transactional
+    @Caching(evict = {
+            @CacheEvict(value = CacheNames.QUESTION_DETAILS, key = "#id"),
+            @CacheEvict(value = CacheNames.QUESTION, allEntries = true)
+    })
     public QuestionEntity updateQuestion(Long id, QuestionCreateAndUpdateRequest request) {
         QuestionEntity entity = questionRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Question not found"));
@@ -48,6 +62,10 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Transactional
+    @Caching(evict = {
+            @CacheEvict(value = CacheNames.QUESTION_DETAILS, key = "#id"),
+            @CacheEvict(value = CacheNames.QUESTION, allEntries = true)
+    })
     public QuestionEntity patchQuestion(Long id, QuestionCreateAndUpdateRequest request) {
         QuestionEntity entity = questionRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Question not found"));
@@ -66,21 +84,34 @@ public class QuestionServiceImpl implements QuestionService {
         return changed ? questionRepository.save(entity) : entity;
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public QuestionEntity getQuestion(Long id) {
+    @Cacheable(value = CacheNames.QUESTION_DETAILS, key = "#id")
+    public QuestionDto getQuestion(Long id) {
+        log.info("Fetching question details from DB: {}", id);
         return questionRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Question not found"));
+                .map(questionMapper::toQuestionDto)
+                .orElseThrow(() -> new EntityNotFoundException("Question not found"));
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public List<QuestionEntity> getQuestionsByCourseId(Long courseId) {
-        return questionRepository.findQuestionsByCourseId(courseId);
+    @Cacheable(value = CacheNames.QUESTION, key = "#courseId")
+    public List<QuestionDto> getQuestionsByCourseId(Long courseId) {
+        log.info("Fetching questions from DB for course: {}", courseId);
+        return questionRepository.findQuestionsByCourseId(courseId).stream()
+                .map(questionMapper::toQuestionDto)
+                .toList();
     }
 
     @Transactional
     @Override
+    @Caching(evict = {
+            @CacheEvict(value = CacheNames.QUESTION_DETAILS, key = "#id"),
+            @CacheEvict(value = CacheNames.QUESTION, allEntries = true)
+    })
     public void deleteQuestion(Long id) {
-        log.info("Deleting question by id: {}", id);
+        log.info("Deleting question id: {}", id);
         questionRepository.deleteById(id);
     }
 }

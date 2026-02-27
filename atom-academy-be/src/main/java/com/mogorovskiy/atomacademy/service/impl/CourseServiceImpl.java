@@ -3,8 +3,10 @@ package com.mogorovskiy.atomacademy.service.impl;
 import com.mogorovskiy.atomacademy.api.request.create.CourseCreateRequest;
 import com.mogorovskiy.atomacademy.api.request.update.CourseUpdateRequest;
 import com.mogorovskiy.atomacademy.domain.CacheNames;
+import com.mogorovskiy.atomacademy.domain.dto.CourseDto;
 import com.mogorovskiy.atomacademy.domain.entities.AuthorEntity;
 import com.mogorovskiy.atomacademy.domain.entities.CourseEntity;
+import com.mogorovskiy.atomacademy.domain.mapper.CourseMapper;
 import com.mogorovskiy.atomacademy.repository.CourseRepository;
 import com.mogorovskiy.atomacademy.service.AuthorService;
 import com.mogorovskiy.atomacademy.service.CourseService;
@@ -24,8 +26,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CourseServiceImpl implements CourseService {
 
-    private final CourseRepository courseRepository;
+    private final CourseMapper courseMapper;
     private final AuthorService authorService;
+    private final CourseRepository courseRepository;
 
     @Transactional
     @Override
@@ -87,16 +90,29 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     @Cacheable(value = CacheNames.COURSE, key = "#id")
-    public CourseEntity getCourse(Long id) {
+    public CourseDto getCourse(Long id) {
+        log.info("Fetching course from DB for id: {}", id);
         return courseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Course not found"));
+                .map(courseMapper::toCourseDto)
+                .orElseThrow(() -> new EntityNotFoundException("Course not found"));
     }
 
     @Override
+    @Transactional(readOnly = true)
     @Cacheable(value = CacheNames.COURSES_LIST)
-    public List<CourseEntity> getAllCourses() {
-        return courseRepository.findAllWithAuthors();
+    public List<CourseDto> getAllCourses() {
+        log.info("Fetching all courses from DB");
+        return courseRepository.findAllWithAuthors().stream()
+                .map(courseMapper::toCourseDto)
+                .toList();
+    }
+
+    @Override
+    public CourseEntity getCourseEntity(Long id) {
+        return courseRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Course not found"));
     }
 
     @Transactional
