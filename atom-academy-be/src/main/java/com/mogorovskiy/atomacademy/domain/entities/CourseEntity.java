@@ -1,6 +1,6 @@
 package com.mogorovskiy.atomacademy.domain.entities;
 
-import com.mogorovskiy.atomacademy.domain.CourseComplexityEnum;
+import com.mogorovskiy.atomacademy.domain.CourseComplexitiesEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,7 +28,7 @@ public class CourseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 100)
-    private CourseComplexityEnum complexity;
+    private CourseComplexitiesEnum complexity;
 
     @ManyToOne
     @JoinColumn(name = "creator_id", nullable = false)
@@ -37,7 +37,7 @@ public class CourseEntity {
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<QuestionEntity> questions = new ArrayList<>();
 
-    public CourseEntity(String title, String description, CourseComplexityEnum complexity) {
+    public CourseEntity(String title, String description, CourseComplexitiesEnum complexity) {
         this.title = title;
         this.description = description;
         this.complexity = complexity;

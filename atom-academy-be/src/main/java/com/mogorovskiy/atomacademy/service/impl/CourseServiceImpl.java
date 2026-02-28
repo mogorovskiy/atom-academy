@@ -4,11 +4,11 @@ import com.mogorovskiy.atomacademy.api.request.create.CourseCreateRequest;
 import com.mogorovskiy.atomacademy.api.request.update.CourseUpdateRequest;
 import com.mogorovskiy.atomacademy.domain.CacheNames;
 import com.mogorovskiy.atomacademy.domain.dto.CourseDto;
-import com.mogorovskiy.atomacademy.domain.entities.AuthorEntity;
+import com.mogorovskiy.atomacademy.domain.entities.UserEntity;
 import com.mogorovskiy.atomacademy.domain.entities.CourseEntity;
 import com.mogorovskiy.atomacademy.domain.mapper.CourseMapper;
 import com.mogorovskiy.atomacademy.repository.CourseRepository;
-import com.mogorovskiy.atomacademy.service.AuthorService;
+import com.mogorovskiy.atomacademy.service.UserService;
 import com.mogorovskiy.atomacademy.service.CourseService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ import java.util.List;
 public class CourseServiceImpl implements CourseService {
 
     private final CourseMapper courseMapper;
-    private final AuthorService authorService;
+    private final UserService userService;
     private final CourseRepository courseRepository;
 
     @Transactional
@@ -35,10 +35,10 @@ public class CourseServiceImpl implements CourseService {
     @CacheEvict(value = CacheNames.COURSES_LIST, allEntries = true)
     public CourseEntity createCourse(CourseCreateRequest createRequest) {
         log.info("Creating course in DB: {}", createRequest.title());
-        AuthorEntity author = authorService.getAuthor(createRequest.authorId());
+        UserEntity creator = userService.getUser(createRequest.creatorId());
 
         CourseEntity courseEntity = CourseEntity.builder()
-                .author(author)
+                .creator(creator)
                 .title(createRequest.title())
                 .complexity(createRequest.complexity())
                 .description(createRequest.description())
@@ -104,7 +104,7 @@ public class CourseServiceImpl implements CourseService {
     @Cacheable(value = CacheNames.COURSES_LIST)
     public List<CourseDto> getAllCourses() {
         log.info("Fetching all courses from DB");
-        return courseRepository.findAllWithAuthors().stream()
+        return courseRepository.findAllWithCreators().stream()
                 .map(courseMapper::toCourseDto)
                 .toList();
     }

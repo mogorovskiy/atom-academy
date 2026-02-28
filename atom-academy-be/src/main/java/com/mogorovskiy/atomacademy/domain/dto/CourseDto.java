@@ -1,16 +1,16 @@
 package com.mogorovskiy.atomacademy.domain.dto;
 
-import com.mogorovskiy.atomacademy.domain.CourseComplexityEnum;
+import com.mogorovskiy.atomacademy.domain.CourseComplexitiesEnum;
 
 import java.util.List;
 
 public record CourseDto(
         Long id,
-        Long authorId,
+        Long creatorId,
         String title,
-        String authorName,
+        String creatorName,
         String description,
-        CourseComplexityEnum complexity,
+        CourseComplexitiesEnum complexity,
         List<QuestionDto> questions
 ) {
 }

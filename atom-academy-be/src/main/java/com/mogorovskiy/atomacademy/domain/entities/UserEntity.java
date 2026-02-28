@@ -1,6 +1,6 @@
 package com.mogorovskiy.atomacademy.domain.entities;
 
-import com.mogorovskiy.atomacademy.domain.Role;
+import com.mogorovskiy.atomacademy.domain.UserRolesEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user")
+@Table(name = "\"user\"")
 public class UserEntity {
 
     @Id
@@ -34,7 +34,7 @@ public class UserEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role;
+    private UserRolesEnum role;
 
     public UserEntity(String name, String email, List<CourseEntity> courses) {
         this.name = name;

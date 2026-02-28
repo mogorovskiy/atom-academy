@@ -8,8 +8,8 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface CourseMapper {
 
-    @Mapping(source = "author.name", target = "authorName")
-    @Mapping(source = "author.id", target = "authorId")
+    @Mapping(source = "creator.name", target = "creatorName")
+    @Mapping(source = "creator.id", target = "creatorId")
     CourseDto toCourseDto(CourseEntity courseEntity);
 
     CourseEntity toCourseEntity(CourseDto courseDto);

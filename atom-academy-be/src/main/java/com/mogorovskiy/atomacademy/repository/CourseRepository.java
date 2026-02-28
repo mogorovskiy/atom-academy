@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
 
-    @Query("select c from CourseEntity c left join fetch c.author")
-    List<CourseEntity> findAllWithAuthors();
+    @Query("select c from CourseEntity c left join fetch c.creator")
+    List<CourseEntity> findAllWithCreators();
 
 }

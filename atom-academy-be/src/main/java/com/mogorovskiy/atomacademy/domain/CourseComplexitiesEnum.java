@@ -1,6 +1,6 @@
 package com.mogorovskiy.atomacademy.domain;
 
-public enum CourseComplexityEnum {
+public enum CourseComplexitiesEnum {
     EASY,
     MEDIUM,
     HARD
