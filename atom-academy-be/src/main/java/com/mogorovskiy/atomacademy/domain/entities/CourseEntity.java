@@ -43,7 +43,7 @@ public class CourseEntity {
         this.complexity = complexity;
     }
 
-    public void addQuestions(QuestionEntity question) {
+    public void addQuestion(QuestionEntity question) {
         if (questions == null) {
             this.questions = new ArrayList<>();
         }
