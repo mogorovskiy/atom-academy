@@ -1,11 +1,11 @@
 package com.mogorovskiy.atomacademy.domain.entities;
 
+import com.mogorovskiy.atomacademy.domain.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Getter
 @Setter
@@ -13,8 +13,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "author")
-public class AuthorEntity {
+@Table(name = "user")
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,16 +26,23 @@ public class AuthorEntity {
     @Column(nullable = false, length = 50)
     private String email;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(nullable = false, length = 50)
+    private String password;
+
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CourseEntity> courses = new ArrayList<>();
 
-    public AuthorEntity(String name, String email, List<CourseEntity> courses) {
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
+    public UserEntity(String name, String email, List<CourseEntity> courses) {
         this.name = name;
         this.email = email;
         setCourses(courses);
     }
 
-    public AuthorEntity(String name, String email) {
+    public UserEntity(String name, String email) {
         this.name = name;
         this.email = email;
     }
@@ -45,6 +52,6 @@ public class AuthorEntity {
             this.courses = new ArrayList<>();
         }
         this.courses.add(courses);
-        courses.setAuthor(this);
+        courses.setCreator(this);
     }
 }

@@ -31,8 +31,8 @@ public class CourseEntity {
     private CourseComplexityEnum complexity;
 
     @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false)
-    private AuthorEntity author;
+    @JoinColumn(name = "creator_id", nullable = false)
+    private UserEntity creator;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<QuestionEntity> questions = new ArrayList<>();
