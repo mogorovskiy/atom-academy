@@ -26,6 +26,8 @@ public class UserServiceImpl implements UserService {
         UserEntity entity = UserEntity.builder()
                 .name(userCreateRequest.name())
                 .email(userCreateRequest.email())
+                .password(userCreateRequest.password())
+                .role(userCreateRequest.role())
                 .build();
 
         return UserRepository.save(entity);
