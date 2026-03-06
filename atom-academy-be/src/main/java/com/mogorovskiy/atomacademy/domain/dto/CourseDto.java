@@ -2,6 +2,7 @@ package com.mogorovskiy.atomacademy.domain.dto;
 
 import com.mogorovskiy.atomacademy.domain.CourseComplexitiesEnum;
 
+import java.io.Serializable;
 import java.util.List;
 
 public record CourseDto(
@@ -12,5 +13,5 @@ public record CourseDto(
         String description,
         CourseComplexitiesEnum complexity,
         List<QuestionDto> questions
-) {
+) implements Serializable {
 }

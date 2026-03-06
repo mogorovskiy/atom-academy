@@ -2,11 +2,12 @@ package com.mogorovskiy.atomacademy.api.request.create;
 
 import com.mogorovskiy.atomacademy.domain.CourseComplexitiesEnum;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record CourseCreateRequest(
 
-        @NotBlank(message = "Creator id cannot be empty")
+        @NotNull(message = "Creator id cannot be empty")
         Long creatorId,
 
         @NotBlank(message = "Title cannot be empty")
@@ -16,6 +17,7 @@ public record CourseCreateRequest(
         @NotBlank(message = "Description cannot be empty")
         String description,
 
+        @NotNull(message = "Complexity cannot be empty")
         CourseComplexitiesEnum complexity
 
 ) {

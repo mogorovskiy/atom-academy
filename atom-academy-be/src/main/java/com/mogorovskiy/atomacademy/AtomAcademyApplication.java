@@ -2,13 +2,16 @@ package com.mogorovskiy.atomacademy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
+@EnableCaching
 @SpringBootApplication
 public class AtomAcademyApplication {
 
     //TODO: sql indexes +++
     //TODO: redis ++ (without user)
     //TODO: dto validation +++
+
     //TODO: spring security
     //TODO: course pagination https://www.youtube.com/watch?v=_mg0JKU-bvU
 

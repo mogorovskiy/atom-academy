@@ -2,6 +2,7 @@ package com.mogorovskiy.atomacademy.domain.dto;
 
 import com.mogorovskiy.atomacademy.domain.UserRolesEnum;
 
+import java.io.Serializable;
 import java.util.List;
 
 public record UserDto(
@@ -11,5 +12,5 @@ public record UserDto(
         String password,
         UserRolesEnum role,
         List<CourseDto> courses
-) {
+) implements Serializable {
 }

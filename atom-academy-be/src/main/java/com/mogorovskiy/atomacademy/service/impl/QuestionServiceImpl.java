@@ -1,7 +1,7 @@
 package com.mogorovskiy.atomacademy.service.impl;
 
 import com.mogorovskiy.atomacademy.api.request.create.QuestionCreateAndUpdateRequest;
-import com.mogorovskiy.atomacademy.domain.CacheNames;
+import com.mogorovskiy.atomacademy.config.CacheNames;
 import com.mogorovskiy.atomacademy.domain.dto.QuestionDto;
 import com.mogorovskiy.atomacademy.domain.entities.CourseEntity;
 import com.mogorovskiy.atomacademy.domain.entities.QuestionEntity;
