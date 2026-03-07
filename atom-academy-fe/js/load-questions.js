@@ -2,22 +2,22 @@ async function loadQuestions() {
     const urlParams = new URLSearchParams(window.location.search);
     const courseId = urlParams.get('id');
 
-    debugger;
-
     if (!courseId) {
         document.getElementById('questions-list').innerHTML =
-            '<div class="alert alert-danger">Курс не указан! Вернитесь на главную.</div>';
+            '<div class="alert alert-danger">Курс не указан!</div>';
         return;
     }
 
     try {
-        const courseRes = await fetch(CONFIG.API_BASE_URL + `/courses/${courseId}`);
+        const courseRes = await fetch(`${window.CONFIG.API_BASE_URL}/courses/${courseId}`);
         const courseData = await courseRes.json();
+
+        // Заполняем текстовые блоки
         document.getElementById('course-title').innerText = courseData.title;
 
-        const response = await fetch(CONFIG.API_BASE_URL + `/courses/${courseId}/questions`);
+        // 2. Загружаем сами вопросы
+        const response = await fetch(`${window.CONFIG.API_BASE_URL}/courses/${courseId}/questions`);
         const questions = await response.json();
-
         const container = document.getElementById('questions-list');
         container.innerHTML = '';
 
@@ -28,29 +28,31 @@ async function loadQuestions() {
 
         questions.forEach(question => {
             const div = document.createElement('div');
-            div.className = 'course-card-link fade-in mb-4';
+            div.className = 'course-card-link fade-in mb-4 w-100';
+            div.style.maxWidth = "800px";
 
             div.innerHTML = `
-    <div class="liquid-glass d-flex justify-content-between align-items-center">
-        <div style="flex: 1;">
-            <h5 class="mb-1">${question.question}</h5>
-            <p class="small mb-0">Нажмите, чтобы открыть ответ</p>
-        </div>
-    </div>
-`;
+                <div class="liquid-glass d-flex justify-content-between align-items-center" style="cursor: pointer;">
+                    <div style="flex: 1;">
+                        <h5 class="mb-1">${question.question}</h5>
+                        <p class="small mb-0">Нажмите, чтобы увидеть ответ</p>
+                    </div>
+                    <div class="btn-minimal ms-3">Смотреть</div>
+                </div>
+            `;
 
-// Весь блок становится кликабельным
             div.addEventListener('click', () => {
                 document.getElementById('modalTitle').innerText = question.question;
-                document.getElementById('modalBody').innerHTML = marked.parse(question.answer || 'Ответ отсутствует');
+                const answer = question.answer || 'Ответ отсутствует';
+                document.getElementById('modalBody').innerHTML = marked.parse(answer);
                 new bootstrap.Modal(document.getElementById('answerModal')).show();
             });
+
             container.appendChild(div);
-        })
+        });
     } catch (e) {
         console.error("Ошибка:", e);
-        document.getElementById('questions-list').innerHTML =
-            '<div class="alert alert-danger">Не удалось загрузить уроки. Проверьте бэкенд.</div>';
+        document.getElementById('questions-list').innerHTML = '<p class="text-danger">Ошибка загрузки.</p>';
     }
 }
 

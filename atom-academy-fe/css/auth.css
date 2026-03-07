@@ -1,0 +1,63 @@
+/* --- Стили авторизации Atom Academy --- */
+
+.liquid-glass.auth-card {
+    width: 100%;
+    max-width: 450px !important; /* Одинаковый размер для всех окон */
+    margin: 0 auto;
+    padding: 40px !important;
+    background: rgba(10, 30, 10, 0.4) !important;
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(0, 255, 100, 0.4);
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+}
+
+.auth-label {
+    font-family: 'JetBrains Mono', monospace;
+    color: #00ff66;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.auth-input {
+    background: rgba(5, 15, 5, 0.7) !important;
+    border: 1px solid rgba(0, 255, 100, 0.2) !important;
+    color: #00ff66 !important;
+    font-family: 'JetBrains Mono', monospace;
+    text-align: center;
+    transition: 0.3s ease;
+    border-radius: 10px !important;
+}
+
+.auth-input:focus {
+    border-color: #00ff66 !important;
+    box-shadow: 0 0 15px rgba(0, 255, 100, 0.4) !important;
+    background: rgba(10, 30, 10, 0.9) !important;
+    outline: none;
+}
+
+.btn-auth {
+    font-family: 'Orbitron', sans-serif;
+    background: transparent;
+    color: #00ff66;
+    border: 2px solid #00ff66;
+    padding: 14px;
+    width: 100%; /* Растягиваем на всю ширину, чтобы была по центру */
+    display: block;
+    text-align: center;
+    margin: 25px 0 15px 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.btn-auth:hover {
+    background: #00ff66;
+    color: #050a05;
+    box-shadow: 0 0 30px rgba(0, 255, 100, 0.6);
+}
