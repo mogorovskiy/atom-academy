@@ -1,54 +1,38 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>Atom Academy | Roadmap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../css/style.css">
 </head>
-<body class="bg-dark">
-<nav class="navbar navbar-dark bg-dark border-bottom border-secondary">
-    <div class="container">
+<body class="bg-dark page-background">
+
+<nav class="navbar navbar-dark floating-navbar container">
+    <div class="container-fluid justify-content-between">
         <a class="navbar-brand d-flex align-items-center" href="#">
-            <img src="../../img/logo2.svg" alt="Logo" width="40" height="40"
-                 class="d-inline-block me-3"> <span class="fw-bold text-uppercase tracking-wider">Atom Academy</span>
+            <span class="fw-bold text-uppercase">Atom Academy</span>
         </a>
+
+        <div class="d-flex">
+            <a href="#" class="nav-link">Стать автором</a>
+        </div>
     </div>
 </nav>
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
-            <div class="author-card p-5 text-center shadow-lg">
-                <h3 class="text-light mb-3 fw-bold">Хотите поделиться знаниями?</h3>
-                <p class="text-light-50 mb-4">Станьте частью команды Atom Academy и создавайте курсы будущего</p>
-                <button type="button" class="btn btn-outline-success btn-lg px-5 fw-bold text-uppercase"
-                        data-bs-toggle="modal" id="сreateAuthorBtn">Стать автором
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="container mt-5">
-    <div class="row mb-4 text-light">
-        <div class="col">
-            <h2>Наши курсы</h2>
-            <p class="text-light">Выберите направление для обучения:</p>
-        </div>
+<main class="container">
+    <div class="text-center mb-5 roadmap-text">
+        <h2 class="text-uppercase fw-bold">Roadmap изучения теории Java:</h2>
+        <p>Пройдите путь от новичка до профи</p>
     </div>
 
-    <div class="row" id="courses-row">
-        <div class="text-light text-center w-100">
-            <div class="spinner-border text-info" role="status"></div>
-            <p class="mt-2">Загружаем знания...</p>
-        </div>
-    </div>
+    <div id="courses-roadmap" class="roadmap-grid"></div>
+</main>
 
-</div>
-
+<script src="../../js/config.js"></script>
+<script src="../../js/load-courses.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../../js/courses.js"></script>
+
 </body>
 </html>
