@@ -1,0 +1,136 @@
+.page-background {
+    background: linear-gradient(rgba(5, 10, 5, 1), rgba(5, 10, 5, 0.7)),
+    url('../../../img/green3.jpg');
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.error-code {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 8rem;
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 2px #f900ff;
+    text-shadow: 0 0 30px rgba(255, 51, 226, 0.4);
+    line-height: 1;
+    margin-bottom: 10px;
+    letter-spacing: -5px;
+}
+
+.error-details {
+    font-family: 'JetBrains Mono', monospace;
+    color: #e0ffe0;
+    font-size: 0.75rem;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 3px solid #f900ff;
+    text-align: left;
+}
+
+.error-details p::after {
+    content: "_";
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+
+/* --------- КНОПКА ТЕРМИНАЛЬЧИКА --------- */
+.btn-terminal {
+    position: relative;
+    display: inline-block;
+    padding: 14px 45px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #00ff65;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 3px;
+    border: 1px solid rgba(0, 255, 15, 0.5);
+    background: rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: all 0.4s ease;
+    border-radius: 4px;
+}
+
+/* Эффект сканирующей полосы */
+.btn-terminal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(0, 255, 35, 0.2),
+            transparent
+    );
+    transition: 0.5s;
+}
+
+.btn-terminal:hover::before {
+    left: 100%;
+}
+
+.btn-terminal:hover {
+    color: #050a05;
+    background: #08ff00;
+    box-shadow: 0 0 20px rgba(7, 255, 0, 0.6),
+    0 0 40px rgba(0, 255, 19, 0.3);
+    border-color: #00ff07;
+    transform: translateY(-3px);
+}
+
+.btn-terminal:active {
+    transform: scale(0.95);
+}
+
+/* Мигающий текст, если кнопка долго без внимания */
+.btn-text {
+    position: relative;
+    z-index: 1;
+}
+
+/* --------- ХЕДДЕР --------- */
+.header-minimal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+body {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.brand-top-left span {
+    font-family: 'Orbitron', sans-serif;
+    color: #00ff66;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    text-shadow: 0 0 12px rgba(0, 255, 100, 0.5);
+    transition: 0.3s;
+}
+
+.brand-top-left a {
+    text-decoration: none;
+}
+
+.brand-top-left:hover span {
+    text-shadow: 0 0 20px rgba(0, 255, 100, 0.8);
+}

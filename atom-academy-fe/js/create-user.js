@@ -12,7 +12,7 @@ async function createUser(event) {
         submitBtn.innerText = 'INITIALIZING...';
         submitBtn.disabled = true;
 
-        const response = await fetch(`${window.CONFIG.API_BASE_URL}/auth/register`, {
+        const response = await fetch(`${window.CONFIG.API_BASE_URL}/auth/register`, { //TODO
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
