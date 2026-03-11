@@ -1,13 +1,11 @@
-async function createUser(event) {
+async function loginUser(event) {
     event.preventDefault();
 
-    const submitBtn = event.target.querySelector('.btn-register');
+    const submitBtn = event.target.querySelector('.btn-login');
     const originalText = submitBtn.innerText;
 
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const role = "ROLE_READER";
 
     try {
         submitBtn.innerText = 'INITIALIZING...';
@@ -29,16 +27,16 @@ async function createUser(event) {
         const data = await response.json();
 
         if (response.ok) {
-            // 3. Успех: перенаправляем на логин через 1.5 секунды
+            // 3. Успех: перенаправляем на стартовую стр через 1.5 секунды
             submitBtn.style.borderColor = '#00ff66';
             submitBtn.innerText = 'ACCESS_GRANTED';
 
             setTimeout(() => {
-                window.location.href = 'login-page.html';
+                window.location.href = 'home-page.html';
             }, 1500);
         } else {
             // 4. Ошибка от сервера (например, такой email уже есть)
-            throw new Error(data.message || 'Registration failed');
+            throw new Error(data.message || 'Login failed.');
         }
     } catch (e) {
         console.error("Ошибка:", e);
@@ -55,8 +53,8 @@ async function createUser(event) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const regForm = document.getElementById('register-form');
+    const regForm = document.getElementById('login-form');
     if (regForm) {
-        regForm.addEventListener('submit', createUser);
+        regForm.addEventListener('submit', loginUser);
     }
 });
