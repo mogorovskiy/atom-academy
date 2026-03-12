@@ -1,12 +1,13 @@
-package com.mogorovskiy.atomacademy.service.impl;
+package com.mogorovskiy.atomacademy.service.common.impl;
 
-import com.mogorovskiy.atomacademy.api.request.create.UserCreateAndUpdateRequest;
+import com.mogorovskiy.atomacademy.api.request.common.create.UserCreateAndUpdateRequest;
 import com.mogorovskiy.atomacademy.domain.entities.UserEntity;
 import com.mogorovskiy.atomacademy.repository.UserRepository;
-import com.mogorovskiy.atomacademy.service.UserService;
+import com.mogorovskiy.atomacademy.service.common.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,16 +19,17 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository UserRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     @Override
-    public UserEntity createUser(UserCreateAndUpdateRequest userCreateRequest) {
-        log.info("Creating user in DB: {}", userCreateRequest.name());
+    public UserEntity createUser(UserCreateAndUpdateRequest request) {
+        log.info("Creating user in DB: {}", request.name());
         UserEntity entity = UserEntity.builder()
-                .name(userCreateRequest.name())
-                .email(userCreateRequest.email())
-                .password(userCreateRequest.password())
-                .role(userCreateRequest.role())
+                .name(request.name())
+                .role(request.role())
+                .email(request.email())
+                .password(passwordEncoder.encode(request.password()))
                 .build();
 
         return UserRepository.save(entity);

@@ -1,6 +1,6 @@
-package com.mogorovskiy.atomacademy.service;
+package com.mogorovskiy.atomacademy.service.common;
 
-import com.mogorovskiy.atomacademy.api.request.create.QuestionCreateAndUpdateRequest;
+import com.mogorovskiy.atomacademy.api.request.common.create.QuestionCreateAndUpdateRequest;
 import com.mogorovskiy.atomacademy.domain.dto.QuestionDto;
 import com.mogorovskiy.atomacademy.domain.entities.QuestionEntity;
 

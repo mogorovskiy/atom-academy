@@ -1,14 +1,14 @@
-package com.mogorovskiy.atomacademy.service.impl;
+package com.mogorovskiy.atomacademy.service.common.impl;
 
-import com.mogorovskiy.atomacademy.api.request.create.QuestionCreateAndUpdateRequest;
-import com.mogorovskiy.atomacademy.config.CacheNames;
+import com.mogorovskiy.atomacademy.api.request.common.create.QuestionCreateAndUpdateRequest;
+import com.mogorovskiy.atomacademy.config.cache.CacheNames;
 import com.mogorovskiy.atomacademy.domain.dto.QuestionDto;
 import com.mogorovskiy.atomacademy.domain.entities.CourseEntity;
 import com.mogorovskiy.atomacademy.domain.entities.QuestionEntity;
 import com.mogorovskiy.atomacademy.domain.mapper.QuestionMapper;
 import com.mogorovskiy.atomacademy.repository.QuestionRepository;
-import com.mogorovskiy.atomacademy.service.CourseService;
-import com.mogorovskiy.atomacademy.service.QuestionService;
+import com.mogorovskiy.atomacademy.service.common.CourseService;
+import com.mogorovskiy.atomacademy.service.common.QuestionService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

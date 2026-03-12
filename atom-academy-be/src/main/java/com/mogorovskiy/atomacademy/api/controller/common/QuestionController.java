@@ -1,10 +1,10 @@
-package com.mogorovskiy.atomacademy.api.controller;
+package com.mogorovskiy.atomacademy.api.controller.common;
 
-import com.mogorovskiy.atomacademy.api.request.create.QuestionCreateAndUpdateRequest;
+import com.mogorovskiy.atomacademy.api.request.common.create.QuestionCreateAndUpdateRequest;
 import com.mogorovskiy.atomacademy.domain.dto.QuestionDto;
 import com.mogorovskiy.atomacademy.domain.entities.QuestionEntity;
 import com.mogorovskiy.atomacademy.domain.mapper.QuestionMapper;
-import com.mogorovskiy.atomacademy.service.QuestionService;
+import com.mogorovskiy.atomacademy.service.common.QuestionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,6 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
 @RequestMapping("/api")
 public class QuestionController {
 

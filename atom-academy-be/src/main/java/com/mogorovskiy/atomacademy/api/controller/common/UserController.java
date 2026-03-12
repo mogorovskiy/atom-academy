@@ -1,10 +1,10 @@
-package com.mogorovskiy.atomacademy.api.controller;
+package com.mogorovskiy.atomacademy.api.controller.common;
 
-import com.mogorovskiy.atomacademy.api.request.create.UserCreateAndUpdateRequest;
+import com.mogorovskiy.atomacademy.api.request.common.create.UserCreateAndUpdateRequest;
 import com.mogorovskiy.atomacademy.domain.dto.UserDto;
 import com.mogorovskiy.atomacademy.domain.entities.UserEntity;
 import com.mogorovskiy.atomacademy.domain.mapper.UserMapper;
-import com.mogorovskiy.atomacademy.service.UserService;
+import com.mogorovskiy.atomacademy.service.common.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
 @RequestMapping("/api/users")
 public class UserController {
 

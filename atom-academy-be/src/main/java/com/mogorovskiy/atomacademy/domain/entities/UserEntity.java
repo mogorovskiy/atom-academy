@@ -3,8 +3,12 @@ package com.mogorovskiy.atomacademy.domain.entities;
 import com.mogorovskiy.atomacademy.domain.UserRolesEnum;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Getter
@@ -14,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "\"user\"")
-public class UserEntity {
+public class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,22 +40,19 @@ public class UserEntity {
     @Column(nullable = false)
     private UserRolesEnum role;
 
-    public UserEntity(String name, String email, List<CourseEntity> courses) {
-        this.name = name;
-        this.email = email;
-        setCourses(courses);
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    public UserEntity(String name, String email) {
-        this.name = name;
-        this.email = email;
+    @Override
+    public String getUsername() {
+        return email;
     }
 
-    public void addCourse(CourseEntity courses) {
-        if (courses == null) {
-            this.courses = new ArrayList<>();
-        }
-        this.courses.add(courses);
-        courses.setCreator(this);
+    @Override
+    public String getPassword() {
+        return password;
     }
+
 }

@@ -1,4 +1,4 @@
-package com.mogorovskiy.atomacademy.api.request.update;
+package com.mogorovskiy.atomacademy.api.request.common.update;
 
 import com.mogorovskiy.atomacademy.domain.CourseComplexitiesEnum;
 

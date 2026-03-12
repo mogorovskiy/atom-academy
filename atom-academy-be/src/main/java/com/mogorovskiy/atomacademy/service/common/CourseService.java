@@ -1,7 +1,7 @@
-package com.mogorovskiy.atomacademy.service;
+package com.mogorovskiy.atomacademy.service.common;
 
-import com.mogorovskiy.atomacademy.api.request.create.CourseCreateRequest;
-import com.mogorovskiy.atomacademy.api.request.update.CourseUpdateRequest;
+import com.mogorovskiy.atomacademy.api.request.common.create.CourseCreateRequest;
+import com.mogorovskiy.atomacademy.api.request.common.update.CourseUpdateRequest;
 import com.mogorovskiy.atomacademy.domain.dto.CourseDto;
 import com.mogorovskiy.atomacademy.domain.entities.CourseEntity;
 

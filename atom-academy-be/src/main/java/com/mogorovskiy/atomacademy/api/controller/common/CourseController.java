@@ -1,11 +1,11 @@
-package com.mogorovskiy.atomacademy.api.controller;
+package com.mogorovskiy.atomacademy.api.controller.common;
 
-import com.mogorovskiy.atomacademy.api.request.create.CourseCreateRequest;
-import com.mogorovskiy.atomacademy.api.request.update.CourseUpdateRequest;
+import com.mogorovskiy.atomacademy.api.request.common.create.CourseCreateRequest;
+import com.mogorovskiy.atomacademy.api.request.common.update.CourseUpdateRequest;
 import com.mogorovskiy.atomacademy.domain.dto.CourseDto;
 import com.mogorovskiy.atomacademy.domain.entities.CourseEntity;
 import com.mogorovskiy.atomacademy.domain.mapper.CourseMapper;
-import com.mogorovskiy.atomacademy.service.CourseService;
+import com.mogorovskiy.atomacademy.service.common.CourseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,6 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
 @RequestMapping("/api/courses")
 public class CourseController {
 

@@ -1,4 +1,4 @@
-package com.mogorovskiy.atomacademy.api.request.create;
+package com.mogorovskiy.atomacademy.api.request.common.create;
 
 import com.mogorovskiy.atomacademy.domain.CourseComplexitiesEnum;
 import jakarta.validation.constraints.NotBlank;

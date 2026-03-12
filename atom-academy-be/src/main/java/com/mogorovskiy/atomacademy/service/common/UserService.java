@@ -1,6 +1,6 @@
-package com.mogorovskiy.atomacademy.service;
+package com.mogorovskiy.atomacademy.service.common;
 
-import com.mogorovskiy.atomacademy.api.request.create.UserCreateAndUpdateRequest;
+import com.mogorovskiy.atomacademy.api.request.common.create.UserCreateAndUpdateRequest;
 import com.mogorovskiy.atomacademy.domain.entities.UserEntity;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.mogorovskiy.atomacademy.config;
+package com.mogorovskiy.atomacademy.config.cache;
 
 public class CacheNames {
     public static final String COURSE = "course";
