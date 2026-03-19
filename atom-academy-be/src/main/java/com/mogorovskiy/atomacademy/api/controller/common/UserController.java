@@ -21,16 +21,6 @@ public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
 
-    @PostMapping
-    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserCreateAndUpdateRequest createRequest) {
-        log.info("Creating user: {}", createRequest);
-
-        UserEntity entity = userService.createUser(createRequest);
-        UserDto userDto = userMapper.toUserDto(entity);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getById(@PathVariable Long id) {
         log.info("Getting user by id: {}", id);
