@@ -1,6 +1,7 @@
 package com.mogorovskiy.atomacademy.domain.mapper;
 
-import com.mogorovskiy.atomacademy.domain.dto.QuestionDto;
+import com.mogorovskiy.atomacademy.domain.dto.FullQuestionDto;
+import com.mogorovskiy.atomacademy.domain.dto.ShortQuestionDto;
 import com.mogorovskiy.atomacademy.domain.entities.QuestionEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -9,8 +10,12 @@ import org.mapstruct.Mapping;
 public interface QuestionMapper {
 
     @Mapping(source = "course.id", target = "courseId")
-    QuestionDto toQuestionDto(QuestionEntity questionEntity);
+    FullQuestionDto toFullQuestionDto(QuestionEntity questionEntity);
 
-    QuestionEntity toQuestionEntity(QuestionDto questionDto);
+    ShortQuestionDto toShortQuestionDto(QuestionEntity questionEntity);
+
+    QuestionEntity toQuestionEntity(FullQuestionDto questionDto);
+
+    QuestionEntity toQuestionEntity(ShortQuestionDto questionDto);
 
 }

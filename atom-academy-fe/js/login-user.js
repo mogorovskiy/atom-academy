@@ -1,53 +1,51 @@
 async function loginUser(event) {
     event.preventDefault();
 
-    const submitBtn = event.target.querySelector('.btn-login');
-    const originalText = submitBtn.innerText;
+    const submitBtn = event.target.querySelector('.btn-auth');
 
-    const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    debugger;
 
     try {
         submitBtn.innerText = 'INITIALIZING...';
         submitBtn.disabled = true;
 
-        const response = await fetch(`${window.CONFIG.API_BASE_URL}/users`, {
+        const response = await fetch(`${window.CONFIG.API_BASE_URL}/auth/login`, {
+            credentials: 'include',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                username: username,
                 email: email,
                 password: password,
-                role: role,
             })
         });
 
         const data = await response.json();
 
         if (response.ok) {
-            // 3. Успех: перенаправляем на стартовую стр через 1.5 секунды
-            submitBtn.style.borderColor = '#00ff66';
-            submitBtn.innerText = 'ACCESS_GRANTED';
+            // Сохраняем данные в браузер
+            localStorage.setItem('userName', data.userName);
+            localStorage.setItem('userRole', data.userRole);
 
+            submitBtn.innerText = 'ACCESS_GRANTED';
             setTimeout(() => {
-                window.location.href = 'home-page.html';
-            }, 1500);
+                window.location.href = '../home-page.html';
+            }, 500);
         } else {
             // 4. Ошибка от сервера (например, такой email уже есть)
             throw new Error(data.message || 'Login failed.');
         }
     } catch (e) {
-        console.error("Ошибка:", e);
-        submitBtn.innerText = 'ERROR: REJECTED';
-        submitBtn.style.borderColor = '#ff4444';
+        submitBtn.innerText = "ERROR: REJECTED"; // Это ты уже сделал
+        submitBtn.classList.add('btn-error');    // А ВОТ ЭТО НУЖНО ДОБАВИТЬ!
 
-        // Возвращаем кнопку в исходное состояние через 2 секунды
         setTimeout(() => {
-            submitBtn.innerText = originalText;
-            submitBtn.disabled = false;
-            submitBtn.style.borderColor = '#00ff66';
+            submitBtn.innerText = "Инициализировать";
+            submitBtn.classList.remove('btn-error');
         }, 2000);
     }
 }

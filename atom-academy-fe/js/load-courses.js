@@ -32,4 +32,20 @@ async function loadCourses() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', loadCourses);
+document.addEventListener('DOMContentLoaded', loadCourses, () => {
+    const authSection = document.getElementById('auth-section');
+    const userName = localStorage.getItem('userName');
+
+    if (userName) {
+        // Если имя есть — заменяем кнопку "Log In" на приветствие и кнопку выхода
+        authSection.innerHTML = `
+            <span class="text-success me-3" style="font-family: 'JetBrains Mono';">
+                HELLO, ${userName.toUpperCase()}
+            </span>
+            <a href="#" class="btn-minimal" id="logout-btn">Log Out</a>
+        `;
+
+        // Вешаем событие на логаут
+        document.getElementById('logout-btn').addEventListener('click', logout);
+    }
+});

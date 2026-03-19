@@ -2,6 +2,7 @@ package com.mogorovskiy.atomacademy.api.controller.auth;
 
 import com.mogorovskiy.atomacademy.api.request.auth.LoginRequest;
 import com.mogorovskiy.atomacademy.api.request.common.create.UserCreateAndUpdateRequest;
+import com.mogorovskiy.atomacademy.domain.entities.UserEntity;
 import com.mogorovskiy.atomacademy.service.common.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -40,7 +41,13 @@ public class AuthController {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
             new HttpSessionSecurityContextRepository().saveContext(SecurityContextHolder.getContext(), request, response);
-            return ResponseEntity.ok(Map.of("message", "SUCCESS: Access Granted"));
+
+            UserEntity user = (UserEntity) authentication.getPrincipal();
+            return ResponseEntity.ok(Map.of(
+                    "message", "SUCCESS",
+                    "userName", user.getName(),
+                    "userRole", user.getRole().name()
+            ));
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "ERROR: Invalid credentials"));
         }

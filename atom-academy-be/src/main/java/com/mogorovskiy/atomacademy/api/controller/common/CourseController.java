@@ -21,8 +21,8 @@ import java.util.List;
 @RequestMapping("/api/courses")
 public class CourseController {
 
-    private final CourseService courseService;
     private final CourseMapper courseMapper;
+    private final CourseService courseService;
 
     @PostMapping
     public ResponseEntity<CourseDto> createCourse(@Valid @RequestBody CourseCreateRequest createRequest) {

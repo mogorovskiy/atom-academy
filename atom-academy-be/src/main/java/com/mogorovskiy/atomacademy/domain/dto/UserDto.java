@@ -9,7 +9,6 @@ public record UserDto(
         Long id,
         String name,
         String email,
-        String password,
         UserRolesEnum role,
         List<CourseDto> courses
 ) implements Serializable {

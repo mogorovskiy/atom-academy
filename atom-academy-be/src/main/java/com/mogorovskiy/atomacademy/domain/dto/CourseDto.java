@@ -12,6 +12,6 @@ public record CourseDto(
         String creatorName,
         String description,
         CourseComplexitiesEnum complexity,
-        List<QuestionDto> questions
+        List<ShortQuestionDto> questions
 ) implements Serializable {
 }

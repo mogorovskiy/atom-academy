@@ -160,4 +160,72 @@ body {
     border-color: rgba(0, 255, 100, 0.2) !important;
 }
 
+/* ---------- HELLO USERNAME ---------- */
 
+.user-profile-badge {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 255, 102, 0.05);
+    border: 1px solid rgba(0, 255, 102, 0.2);
+    padding: 5px 15px;
+    border-radius: 12px;
+    margin-right: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Эффект сканирующей линии (тонкий блик) */
+.user-profile-badge::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 20%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(30deg);
+    transition: 0.5s;
+    animation: scan-line 3s infinite;
+}
+
+@keyframes scan-line {
+    0% { left: -60%; }
+    100% { left: 150%; }
+}
+
+.user-name-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    color: #00ff66;
+    letter-spacing: 2px;
+    text-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #00ff66;
+    border-radius: 50%;
+    margin-right: 10px;
+    box-shadow: 0 0 10px #00ff66;
+    animation: status-pulse 2s infinite;
+}
+
+@keyframes status-pulse {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.2); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* Стиль для кнопки Log Out, чтобы она отличалась от обычной */
+.btn-logout {
+    border-color: rgba(255, 70, 70, 0.4);
+    color: #ff4646;
+}
+
+.btn-logout:hover {
+    border-color: #ff4646;
+    color: #ffffff;
+    background: rgba(255, 70, 70, 0.2);
+    box-shadow: 0 0 15px rgba(255, 70, 70, 0.2);
+}

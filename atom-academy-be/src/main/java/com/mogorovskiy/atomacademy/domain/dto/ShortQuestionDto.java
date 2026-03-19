@@ -2,9 +2,9 @@ package com.mogorovskiy.atomacademy.domain.dto;
 
 import java.io.Serializable;
 
-public record QuestionDto(
+public record ShortQuestionDto(
+        Long id,
         String question,
-        String answer,
         Long courseId
 ) implements Serializable {
 }

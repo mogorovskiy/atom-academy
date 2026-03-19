@@ -41,11 +41,29 @@ async function loadQuestions() {
                 </div>
             `;
 
-            div.addEventListener('click', () => {
-                document.getElementById('modalTitle').innerText = question.question;
-                const answer = question.answer || 'Ответ отсутствует';
-                document.getElementById('modalBody').innerHTML = marked.parse(answer);
-                new bootstrap.Modal(document.getElementById('answerModal')).show();
+            div.addEventListener('click', async () => {
+                try {
+                    // Делаем запрос за полным объектом (с ответом)
+                    const response = await fetch(`${window.CONFIG.API_BASE_URL}/questions/${question.id}`, {
+                        // Не забудь credentials, чтобы отправилась кука сессии!
+                        credentials: 'include'
+                    });
+
+                    if (response.status === 401) {
+                        alert("Пожалуйста, войдите в аккаунт, чтобы увидеть ответ!");
+                        window.location.href = "../public/authorization/login-page.html";
+                        return;
+                    }
+
+                    const fullQuestion = await response.json();
+
+                    document.getElementById('modalTitle').innerText = fullQuestion.question;
+                    document.getElementById('modalBody').innerHTML = marked.parse(fullQuestion.answer);
+                    new bootstrap.Modal(document.getElementById('answerModal')).show();
+
+                } catch (e) {
+                    console.error("Ошибка доступа:", e);
+                }
             });
 
             container.appendChild(div);

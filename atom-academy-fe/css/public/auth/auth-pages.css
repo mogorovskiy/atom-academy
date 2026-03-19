@@ -1,63 +1,133 @@
-/* --- Стили авторизации Atom Academy --- */
+/* ==========================================================================
+   ATOM ACADEMY - AUTH STYLES (auth-pages.css)
+   ========================================================================== */
 
-.liquid-glass.auth-card {
+body {
+    background-color: #050a05;
+    background-image: radial-gradient(#1a361a 0.5px, transparent 0.5px);
+    background-size: 30px 30px;
+    color: #e0ffe0;
+    font-family: 'JetBrains Mono', monospace;
+    min-height: 100vh;
+    padding-bottom: 50px;
+}
+
+.page-background {
+    background: linear-gradient(rgba(5, 10, 5, 0.7), rgba(5, 10, 5, 0.7)),
+    url('../../../img/green3.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* --- HEADER --- */
+.header-minimal {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 450px !important; /* Одинаковый размер для всех окон */
-    margin: 0 auto;
-    padding: 40px !important;
-    background: rgba(10, 30, 10, 0.4) !important;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+.brand-top-left span {
+    font-family: 'Orbitron', sans-serif;
+    color: #00ff66;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    text-shadow: 0 0 12px rgba(0, 255, 100, 0.5);
+    transition: 0.3s;
+}
+
+/* --- AUTH CARD --- */
+.liquid-glass {
+    background: rgba(0, 0, 0, 0.7) !important;
     backdrop-filter: blur(15px);
     border: 2px solid rgba(0, 255, 100, 0.4);
     border-radius: 20px;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+    padding: 35px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
 }
 
-.auth-label {
-    font-family: 'JetBrains Mono', monospace;
-    color: #00ff66;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-    display: block;
-}
-
+/* --- INPUTS & AUTOFILL HACK --- */
 .auth-input {
-    background: rgba(5, 15, 5, 0.7) !important;
-    border: 1px solid rgba(0, 255, 100, 0.2) !important;
+    background: rgba(20, 40, 20, 0.6) !important;
+    border: 1px solid rgba(0, 255, 100, 0.3) !important;
     color: #00ff66 !important;
     font-family: 'JetBrains Mono', monospace;
     text-align: center;
+    border-radius: 12px !important;
+    padding: 14px !important;
     transition: 0.3s ease;
-    border-radius: 10px !important;
+}
+
+/* ХАК ДЛЯ АВТОЗАПОЛНЕНИЯ (чтобы не было белым) */
+.auth-input:-webkit-autofill,
+.auth-input:-webkit-autofill:hover,
+.auth-input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #00ff66 !important; /* Цвет текста */
+    transition: background-color 5000s ease-in-out 0s; /* Маскируем фон */
+    box-shadow: inset 0 0 0px 1000px rgba(20, 40, 20, 1) !important; /* Заливаем внутренним цветом */
 }
 
 .auth-input:focus {
     border-color: #00ff66 !important;
-    box-shadow: 0 0 15px rgba(0, 255, 100, 0.4) !important;
-    background: rgba(10, 30, 10, 0.9) !important;
+    box-shadow: 0 0 15px rgba(0, 255, 100, 0.3) !important;
+    background: rgba(20, 50, 20, 0.8) !important;
     outline: none;
 }
 
+/* --- BUTTONS --- */
 .btn-auth {
-    font-family: 'Orbitron', sans-serif;
-    background: transparent;
-    color: #00ff66;
-    border: 2px solid #00ff66;
-    padding: 14px;
-    width: 100%; /* Растягиваем на всю ширину, чтобы была по центру */
-    display: block;
-    text-align: center;
-    margin: 25px 0 15px 0;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: bold;
-    transition: 0.4s;
-    cursor: pointer;
+    display: block !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    margin: 30px auto 15px auto !important;
+    font-family: 'Orbitron', sans-serif !important;
+    color: #00ff66 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 3px !important;
+    font-weight: 800 !important;
+    font-size: 1rem !important;
+    background: rgba(0, 255, 100, 0.1) !important;
+    border: 2px solid #00ff66 !important;
+    padding: 15px 20px !important;
+    border-radius: 12px !important;
+    text-shadow: 0 0 10px rgba(0, 255, 100, 0.8) !important;
+    box-shadow: inset 0 0 15px rgba(0, 255, 100, 0.1) !important;
+    transition: 0.3s !important;
+    cursor: pointer !important;
 }
 
-.btn-auth:hover {
-    background: #00ff66;
-    color: #050a05;
-    box-shadow: 0 0 30px rgba(0, 255, 100, 0.6);
+/* КРАСНАЯ ОШИБКА (с усиленным приоритетом) */
+.btn-auth.btn-error {
+    border-color: #ff4646 !important;
+    color: #ff4646 !important;
+    background: rgba(255, 70, 70, 0.1) !important;
+    text-shadow: 0 0 15px rgba(255, 70, 70, 0.9) !important;
+    box-shadow: 0 0 20px rgba(255, 70, 70, 0.4), inset 0 0 10px rgba(255, 70, 70, 0.2) !important;
+}
+
+.btn-auth:hover:not(.btn-error) {
+    background: #00ff66 !important;
+    color: #050a05 !important;
+    box-shadow: 0 0 40px rgba(0, 255, 100, 0.7) !important;
+    text-shadow: none !important;
+}
+
+/* --- FOOTER LINKS --- */
+.auth-link-custom {
+    color: #00ff66 !important;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.auth-link-custom:hover {
+    text-shadow: 0 0 10px #00ff66;
+}
+
+.text-secondary {
+    color: rgba(0, 255, 100, 0.5) !important;
 }

@@ -2,7 +2,8 @@ package com.mogorovskiy.atomacademy.service.common.impl;
 
 import com.mogorovskiy.atomacademy.api.request.common.create.QuestionCreateAndUpdateRequest;
 import com.mogorovskiy.atomacademy.config.cache.CacheNames;
-import com.mogorovskiy.atomacademy.domain.dto.QuestionDto;
+import com.mogorovskiy.atomacademy.domain.dto.FullQuestionDto;
+import com.mogorovskiy.atomacademy.domain.dto.ShortQuestionDto;
 import com.mogorovskiy.atomacademy.domain.entities.CourseEntity;
 import com.mogorovskiy.atomacademy.domain.entities.QuestionEntity;
 import com.mogorovskiy.atomacademy.domain.mapper.QuestionMapper;
@@ -32,7 +33,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Transactional
     @Override
     @CacheEvict(value = CacheNames.QUESTION, key = "#courseId")
-    public QuestionDto createQuestion(Long courseId, QuestionCreateAndUpdateRequest createRequest) {
+    public FullQuestionDto createQuestion(Long courseId, QuestionCreateAndUpdateRequest createRequest) {
         log.info("Creating question for course {}: {}", courseId, createRequest.question());
         CourseEntity courseEntity = courseService.getCourseEntity(courseId);
 
@@ -43,7 +44,7 @@ public class QuestionServiceImpl implements QuestionService {
                 .build();
 
         QuestionEntity saved = questionRepository.save(questionEntity);
-        return questionMapper.toQuestionDto(saved);
+        return questionMapper.toFullQuestionDto(saved);
     }
 
     @Transactional
@@ -87,20 +88,20 @@ public class QuestionServiceImpl implements QuestionService {
     @Transactional(readOnly = true)
     @Override
     @Cacheable(value = CacheNames.QUESTION_DETAILS, key = "#id")
-    public QuestionDto getQuestion(Long id) {
+    public FullQuestionDto getQuestion(Long id) {
         log.info("Fetching question details from DB: {}", id);
         return questionRepository.findById(id)
-                .map(questionMapper::toQuestionDto)
+                .map(questionMapper::toFullQuestionDto)
                 .orElseThrow(() -> new EntityNotFoundException("Question not found"));
     }
 
     @Transactional(readOnly = true)
     @Override
     @Cacheable(value = CacheNames.QUESTION, key = "#courseId")
-    public List<QuestionDto> getQuestionsByCourseId(Long courseId) {
+    public List<ShortQuestionDto> getQuestionsByCourseId(Long courseId) {
         log.info("Fetching questions from DB for course: {}", courseId);
         return questionRepository.findQuestionsByCourseId(courseId).stream()
-                .map(questionMapper::toQuestionDto)
+                .map(questionMapper::toShortQuestionDto)
                 .toList();
     }
 
